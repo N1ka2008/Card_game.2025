@@ -1,5 +1,9 @@
 public class Card implements Comparable<Card> {
 
+    private CardType type;
+    private CardColor color;
+    private boolean specialCard;
+
     //chat gpt pomohl
     @Override
     public int compareTo(Card o) {
@@ -9,10 +13,6 @@ public class Card implements Comparable<Card> {
         }
         return this.color.compareTo(o.color);
     }
-
-    private CardType type;
-    private CardColor color;
-    private boolean specialCard;
 
     public Card(CardType type, CardColor color, boolean specialCard) {
         this.type = type;

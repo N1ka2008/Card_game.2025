@@ -5,7 +5,6 @@ public enum CardType {
     NINE(9),
     TEN(10);
 
-
     private final int hodnota;
 
     CardType() {
