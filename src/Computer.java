@@ -1,6 +1,14 @@
-public class Computer extends Card {
+import java.util.TreeSet;
 
-    public Computer(CardType type, CardColor color, boolean specialCard) {
-        super(type, color, specialCard);
+public class Computer extends Pack {
+
+    public Computer(TreeSet<Card> cardPack, Card melded){
+        super(cardPack, melded);
     }
+
+    public TreeSet<Card> getComputerPack() {
+        return computerPack;
+    }
+
+    public TreeSet<Card> computerPack = new TreeSet<>();
 }
