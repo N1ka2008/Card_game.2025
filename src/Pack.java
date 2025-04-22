@@ -6,6 +6,8 @@ public class Pack {
     private Card melded;
     private Player player;
     private Computer computer;
+    private CardColor actualCardColor = melded.getColor();
+    private CardType actualCardType = melded.getType();
 
     public TreeSet<Card> cardPack = new TreeSet<>();
 
@@ -24,7 +26,7 @@ public class Pack {
     }
 
     public void add(Card card) {
-        if(cardPack.size() <= 32) {
+        if(cardPack.size() < 32) {
             cardPack.add(card);
         } else{
             System.out.println("Cannot add card to the pack");
@@ -32,43 +34,61 @@ public class Pack {
     }
 
     public void startCards(){
+        Card[] firstEightCards = new Card[8];
         Iterator<Card> iterator = cardPack.iterator();
-        Card first = null;
-        Card second = null;
-        Card third = null;
-        Card fourth = null;
-        Card fifth = null;
-        Card sixth = null;
-        Card seventh = null;
-        Card eighth = null;
-        for (int i = 0; i < 4 && iterator.hasNext(); i++) {
-            Card current = iterator.next();
-            if (i == 0) first = current;
-            if (i == 1) second = current;
-            if (i == 2) third = current;
-            if (i == 3) fourth = current;
-            if (i == 4) fifth = current;
-            if (i == 5) sixth = current;
-            if (i == 6) seventh = current;
-            if (i == 7) eighth = current;
+
+        for (int i = 0; i < 8 && iterator.hasNext(); i++) {
+            firstEightCards[i] = iterator.next();
         }
-        player.playerPack.add(first);
-        player.playerPack.add(third);
-        player.playerPack.add(fifth);
-        player.playerPack.add(seventh);
 
-        computer.computerPack.add(second);
-        computer.computerPack.add(fourth);
-        computer.computerPack.add(sixth);
-        computer.computerPack.add(eighth);
+        for (int i = 0; i < 8; i += 2) {
+            player.playerPack.add(firstEightCards[i]);
+            cardPack.remove(firstEightCards[i]);
+        }
 
-        cardPack.remove(first);
-        cardPack.remove(second);
-        cardPack.remove(third);
-        cardPack.remove(fourth);
-        cardPack.remove(fifth);
-        cardPack.remove(sixth);
-        cardPack.remove(seventh);
-        cardPack.remove(eighth);
+        for (int i = 1; i < 8; i += 2) {
+            computer.computerPack.add(firstEightCards[i]);
+            cardPack.remove(firstEightCards[i]);
+        }
+    }
+
+    public CardType getActualCardType() {
+        return actualCardType;
+    }
+
+    public void setActualCardType(CardType actualCardType) {
+        this.actualCardType = actualCardType;
+    }
+
+    public CardColor getActualCardColor() {
+        return actualCardColor;
+    }
+
+    public void setActualCardColor(CardColor actualCardColor) {
+        this.actualCardColor = actualCardColor;
+    }
+
+    public Computer getComputer() {
+        return computer;
+    }
+
+    public void setComputer(Computer computer) {
+        this.computer = computer;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Card getMelded() {
+        return melded;
+    }
+
+    public void setMelded(Card melded) {
+        this.melded = melded;
     }
 }

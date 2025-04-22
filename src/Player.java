@@ -12,10 +12,4 @@ public class Player extends Pack{
 
     public TreeSet<Card> playerPack = new TreeSet<>();
 
-    /*public void startCards(){
-
-    }
-
-     */
-
 }

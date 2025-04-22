@@ -1,4 +1,5 @@
 public class Exit extends Command{
+
     @Override
     public boolean execute(String argument) {
         return false;
