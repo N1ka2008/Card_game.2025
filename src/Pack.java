@@ -17,7 +17,7 @@ public class Pack {
     }
 
     public Pack() {
-        melded = cardPack.first();
+        melded = cardPack.last();
     }
 
      public Pack(Computer computer, Player player) {

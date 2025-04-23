@@ -11,4 +11,23 @@ public class Computer extends Pack {
     }
 
     public TreeSet<Card> computerPack = new TreeSet<>();
+
+    public void playCard() {
+        for(Card card : computerPack) {
+            if (card.getColor().equals(getMelded().getColor()) || card.getType().equals(getMelded().getType())) {
+                computerPack.remove(card);
+                cardPack.add(card);
+                System.out.println("Computer played card");
+            }else{
+                drawCard();
+            }
+        }
+    }
+
+    public void drawCard() {
+        Card card = cardPack.first();
+        computerPack.add(card);
+       cardPack.remove(card);
+        System.out.println("computer drawed a card");
+    }
 }
