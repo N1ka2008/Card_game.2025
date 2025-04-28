@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.TreeSet;
 
 public class Computer extends Pack {
@@ -14,12 +15,33 @@ public class Computer extends Pack {
 
     public void playCard() {
         for(Card card : computerPack) {
-            if (card.getColor().equals(getMelded().getColor()) || card.getType().equals(getMelded().getType())) {
+            if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
                 computerPack.remove(card);
                 cardPack.add(card);
                 System.out.println("Computer played card");
-            }else{
+            }else if(card.getType().equals(CardType.J)) {
+                changeColor();
+                computerPack.remove(card);
+                cardPack.add(card);
+                System.out.println("Computer changed color");
+            } else {
                 drawCard();
+                drawCard();
+            }
+        }
+    }
+
+    public void draw2Cards(){
+        Card [] firstTwoCards = new Card[2];
+        Iterator<Card> iterator = cardPack.iterator();
+
+        for(int i =0; i<2 && iterator.hasNext(); i++){
+            firstTwoCards[i] = iterator.next();
+        }
+        if(getActualCardType().equals(CardType.SEVEN)) {
+            for(int i = 0; i < 2; i++){
+                computerPack.add(firstTwoCards[i]);
+                cardPack.remove(firstTwoCards[i]);
             }
         }
     }
@@ -29,5 +51,42 @@ public class Computer extends Pack {
         computerPack.add(card);
        cardPack.remove(card);
         System.out.println("computer drawed a card");
+    }
+
+    public void changeColor() {
+        int heartsCount = 0;
+        int diamondsCount = 0;
+        int clubsCount = 0;
+        int spadesCount = 0;
+
+        for(Card card : computerPack) {
+           switch (card.getColor()) {
+               case HEARTS:
+                   heartsCount++;
+                   break;
+                   case DIAMONDS:
+                       diamondsCount++;
+                       break;
+                       case CLUBS:
+                           clubsCount++;
+                           break;
+                           case SPADES:
+                               spadesCount++;
+                               break;
+           }
+
+            int max = Math.max(Math.max(heartsCount, diamondsCount), Math.max(clubsCount, spadesCount));
+
+            if(max == heartsCount){
+                setActualCardColor(CardColor.HEARTS);
+            } else if (max == diamondsCount){
+                setActualCardColor(CardColor.DIAMONDS);
+            }else if (max == clubsCount){
+                setActualCardColor(CardColor.CLUBS);
+            }else if (max == spadesCount){
+                setActualCardColor(CardColor.SPADES);
+            }
+
+        }
     }
 }
