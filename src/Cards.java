@@ -27,7 +27,7 @@ public class Cards {
         return cards;
     }
 
-    //chatGpt helped
+    //chatgpt helped
     private static CardType parseCardType(String typeStr) {
         try {
             return CardType.valueOf(typeStr);
@@ -37,7 +37,7 @@ public class Cards {
         }
     }
 
-    //chatGpt helped
+    //chatgpt helped
     private static CardColor parseCardColor(String colorStr) {
         try {
             return CardColor.valueOf(colorStr);

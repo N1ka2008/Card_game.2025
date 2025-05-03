@@ -3,6 +3,8 @@ import java.util.TreeSet;
 
 public class Computer extends Pack {
 
+    private boolean turn;
+
     public Computer(TreeSet<Card> cardPack, Card melded){
         super(cardPack, melded);
     }
@@ -26,12 +28,12 @@ public class Computer extends Pack {
                 System.out.println("Computer changed color");
             } else {
                 drawCard();
-                drawCard();
+                //draw2Cards();
             }
         }
     }
 
-    public void draw2Cards(){
+    /*public void draw2Cards(){
         Card [] firstTwoCards = new Card[2];
         Iterator<Card> iterator = cardPack.iterator();
 
@@ -45,6 +47,8 @@ public class Computer extends Pack {
             }
         }
     }
+
+     */
 
     public void drawCard() {
         Card card = cardPack.first();
@@ -88,5 +92,13 @@ public class Computer extends Pack {
             }
 
         }
+    }
+
+    public boolean isTurn() {
+        return turn;
+    }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
     }
 }

@@ -9,8 +9,17 @@ public class Console {
     private boolean exit = false;
     private HashMap<String, Command> map = new HashMap<>();
 
+    Pack pack;
+    Player player;
+
+   public Console(Pack pack, Player player) {
+        this.pack = pack;
+        this.player = player;
+    }
+
+
     public void inicialization(){
-        map.put("draw", new DrawACard());
+        map.put("draw", new DrawACard(player));
         map.put("play", new PlayACard());
         map.put("exit", new Exit());
     }

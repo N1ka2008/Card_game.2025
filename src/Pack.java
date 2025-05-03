@@ -33,6 +33,22 @@ public class Pack {
         }
     }
 
+    public boolean addCardsFromFile(String name) {
+        try {
+            TreeSet<Card> cards = Cards.readCardsFromFile(name);
+            if (cardPack.size() + cards.size() > 32) {
+                System.out.println("The limit is 32 cards");
+                return false;
+            }
+            cardPack.addAll(cards);
+            System.out.println("Pack contains" + cards.size());
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error loading cards from file: " + e.getMessage());
+            return false;
+        }
+    }
+
     public void startCards(){
         Card[] firstEightCards = new Card[8];
         Iterator<Card> iterator = cardPack.iterator();
@@ -49,6 +65,36 @@ public class Pack {
         for (int i = 1; i < 8; i += 2) {
             computer.computerPack.add(firstEightCards[i]);
             cardPack.remove(firstEightCards[i]);
+        }
+    }
+
+    public void mendedIsSeven(){
+        if (computer.isTurn()) {
+            Card[] firstTwoCards = new Card[2];
+            Iterator<Card> iterator = cardPack.iterator();
+
+            for (int i = 0; i < 2 && iterator.hasNext(); i++) {
+                firstTwoCards[i] = iterator.next();
+            }
+            if (getActualCardType().equals(CardType.SEVEN)) {
+                for (int i = 0; i < 2; i++) {
+                    computer.computerPack.add(firstTwoCards[i]);
+                    cardPack.remove(firstTwoCards[i]);
+                }
+            }
+        } else if (player.isTurn()) {
+            Card[] firstTwoCards = new Card[2];
+            Iterator<Card> iterator = cardPack.iterator();
+
+            for (int i = 0; i < 2 && iterator.hasNext(); i++) {
+                firstTwoCards[i] = iterator.next();
+            }
+            if (getActualCardType().equals(CardType.SEVEN)) {
+                for (int i = 0; i < 2; i++) {
+                    player.playerPack.add(firstTwoCards[i]);
+                    cardPack.remove(firstTwoCards[i]);
+                }
+            }
         }
     }
 
