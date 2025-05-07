@@ -2,6 +2,8 @@ public abstract class Command {
 
     protected String command;
 
+
+
     public boolean exit() {
         return false;
     }
@@ -10,5 +12,11 @@ public abstract class Command {
         this.command = command;
     }
 
-    public abstract boolean execute(String argument);
+    public boolean execute(String argument) {
+        return false;
+    }
+
+    public String execute(String color, String type) {
+        return null;
+    }
 }

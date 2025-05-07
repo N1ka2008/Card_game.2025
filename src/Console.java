@@ -20,7 +20,7 @@ public class Console {
 
     public void inicialization(){
         map.put("draw", new DrawACard(player));
-        map.put("play", new PlayACard());
+        map.put("play", new PlayACard(player));
         map.put("exit", new Exit());
     }
 

@@ -28,27 +28,10 @@ public class Computer extends Pack {
                 System.out.println("Computer changed color");
             } else {
                 drawCard();
-                //draw2Cards();
+                mendedIsSeven();
             }
         }
     }
-
-    /*public void draw2Cards(){
-        Card [] firstTwoCards = new Card[2];
-        Iterator<Card> iterator = cardPack.iterator();
-
-        for(int i =0; i<2 && iterator.hasNext(); i++){
-            firstTwoCards[i] = iterator.next();
-        }
-        if(getActualCardType().equals(CardType.SEVEN)) {
-            for(int i = 0; i < 2; i++){
-                computerPack.add(firstTwoCards[i]);
-                cardPack.remove(firstTwoCards[i]);
-            }
-        }
-    }
-
-     */
 
     public void drawCard() {
         Card card = cardPack.first();

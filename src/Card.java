@@ -14,6 +14,9 @@ public class Card implements Comparable<Card> {
         return this.color.compareTo(o.color);
     }
 
+    public Card() {
+    }
+
     public Card(CardType type, CardColor color, boolean specialCard) {
         this.type = type;
         this.color = color;

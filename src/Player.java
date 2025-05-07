@@ -14,11 +14,22 @@ public class Player extends Pack{
 
     public TreeSet<Card> playerPack = new TreeSet<>();
 
-    public void playerDrawCard(){
+    public String playerDrawCard(){
         Card card = cardPack.first();
         playerPack.add(card);
         cardPack.remove(card);
-        System.out.println("player drawed a card");
+        return "player drawed a card";
+    }
+
+    public String playerPlayCard(String color, String type){
+        Card card = new Card();
+        card.setColor(CardColor.valueOf(color));
+        card.setType(CardType.valueOf(type));
+            if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
+                playerPack.remove(card);
+                cardPack.add(card);
+            }
+        return "player played a card";
     }
 
     public boolean isTurn() {
