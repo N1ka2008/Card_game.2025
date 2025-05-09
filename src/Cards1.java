@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.TreeSet;
 
-public class Cards {
+public class Cards1 {
 
     public static TreeSet<Card> readCardsFromFile(String filePath) throws IOException {
         TreeSet<Card> cards = new TreeSet<>();

@@ -35,7 +35,7 @@ public class Pack {
 
     public boolean addCardsFromFile(String name) {
         try {
-            TreeSet<Card> cards = Cards.readCardsFromFile(name);
+            TreeSet<Card> cards = Cards1.readCardsFromFile(name);
             if (cardPack.size() + cards.size() > 32) {
                 System.out.println("The limit is 32 cards");
                 return false;
