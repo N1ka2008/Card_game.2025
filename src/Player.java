@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.TreeSet;
 
 public class Player extends Pack{
@@ -25,11 +26,26 @@ public class Player extends Pack{
         Card card = new Card();
         card.setColor(CardColor.valueOf(color));
         card.setType(CardType.valueOf(type));
-            if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
+        if(card.getType().equals(CardType.J)){
+            playerChangeColor();
+            playerPack.remove(card);
+            cardPack.add(card);
+        }else if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
                 playerPack.remove(card);
                 cardPack.add(card);
-            }
+            } else {
+            mendedIsSeven();
+        }
         return "player played a card";
+    }
+
+    Scanner sc = new Scanner(System.in);
+    public String playerChangeColor(){
+        Card card = new Card();
+        System.out.println("Type a color you want to change to: ");
+        card.setColor(CardColor.valueOf(sc.next()));
+        setActualCardColor(card.getColor());
+        return "player changed color";
     }
 
     public boolean isTurn() {
