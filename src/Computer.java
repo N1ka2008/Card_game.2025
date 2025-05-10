@@ -5,6 +5,9 @@ public class Computer extends Pack {
 
     private boolean turn;
 
+    public Computer() {
+    }
+
     public Computer(TreeSet<Card> cardPack, Card melded){
         super(cardPack, melded);
     }

@@ -9,6 +9,9 @@ public class Player extends Pack{
         super(cardPack, melded);
     }
 
+    public Player(){
+    }
+
     public TreeSet<Card> getPlayerPack() {
         return playerPack;
     }
