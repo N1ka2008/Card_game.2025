@@ -4,12 +4,14 @@ import java.util.TreeSet;
 public class Computer extends Pack {
 
     private boolean turn;
+    Player player;
 
     public Computer() {
     }
 
-    public Computer(TreeSet<Card> cardPack, Card melded){
+    public Computer(TreeSet<Card> cardPack, Card melded, Player player) {
         super(cardPack, melded);
+        this.player = player;
     }
 
     public TreeSet<Card> getComputerPack() {
@@ -33,6 +35,8 @@ public class Computer extends Pack {
                 drawCard();
                 mendedIsSeven();
             }
+            setTurn(false);
+            player.setTurn(true);
         }
     }
 

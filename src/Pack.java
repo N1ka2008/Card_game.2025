@@ -3,22 +3,37 @@ import java.util.TreeSet;
 
 public class Pack {
 
+    public TreeSet<Card> cardPack = new TreeSet<>();
+
     private Card melded;
     private Player player;
     private Computer computer;
-    private CardColor actualCardColor = melded.getColor();
-    private CardType actualCardType = melded.getType();
+    private CardColor actualCardColor;
+    private CardType actualCardType;
 
-    public TreeSet<Card> cardPack = new TreeSet<>();
+
+
+    public Pack() {
+        this.cardPack = new TreeSet<>();
+    }
 
     public Pack(TreeSet<Card> cardPack, Card melded) {
         this.cardPack = cardPack;
         this.melded = melded;
+        if (melded != null) {
+            this.actualCardColor = melded.getColor();
+            this.actualCardType = melded.getType();
+        }
     }
 
-    public Pack() {
-        melded = cardPack.last();
+    public void initializeMelded() {
+        if (!cardPack.isEmpty()) {
+            melded = cardPack.last();
+            this.actualCardColor = getMelded().getColor();
+            this.actualCardType = getMelded().getType();
+        }
     }
+
 
      public Pack(Computer computer, Player player) {
         this.computer = computer;

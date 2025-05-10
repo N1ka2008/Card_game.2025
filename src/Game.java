@@ -2,16 +2,30 @@ import java.io.IOException;
 
 public class Game {
 
-    Cards1 cards = new Cards1();
-    Computer computer = new Computer();
-    Player player = new Player();
-    Pack pack = new Pack();
-    Console console = new Console(pack, player);
-    public void play() throws IOException {
-       // cards.readCardsFromFile(".idea/Cards.txt");
+    Cards1 cards;
+    Computer computer;
+    Player player;
+    Pack pack;
+    Console console;
+
+    public Game() {
         pack.addCardsFromFile(".idea/Cards.txt");
+        pack.initializeMelded();
+        pack.startCards();
+
+        computer = new Computer(pack.cardPack, null, player);
+        player = new Player(pack.cardPack, null);
+        console = new Console(pack, player, computer);
+        pack = new Pack(computer, player);
+
+        player.setTurn(true);
+        computer.setTurn(false);
+    }
+
+    public void play() throws IOException {
         try{
             do{
+                System.out.println("Actual color: " + pack.getActualCardColor()+ "\nActual type: " + pack.getActualCardType());
                 if(computer.isTurn()){
                     computer.playCard();
                 }else {

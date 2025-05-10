@@ -11,16 +11,18 @@ public class Console {
 
     Pack pack;
     Player player;
+    Computer computer;
 
-   public Console(Pack pack, Player player) {
+   public Console(Pack pack, Player player, Computer computer) {
         this.pack = pack;
         this.player = player;
+        this.computer = computer;
     }
 
 
     public void inicialization(){
-        map.put("draw", new DrawACard(player));
-        map.put("play", new PlayACard(player));
+        map.put("draw", new DrawACard(player, computer));
+        map.put("play", new PlayACard(player, computer));
         map.put("exit", new Exit());
     }
 
