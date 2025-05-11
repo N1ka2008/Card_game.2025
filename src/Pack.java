@@ -83,32 +83,40 @@ public class Pack {
         }
     }
 
-    public void mendedIsSeven(){
-        if (computer.isTurn()) {
-            Card[] firstTwoCards = new Card[2];
-            Iterator<Card> iterator = cardPack.iterator();
+    public void meldedIsSeven(){
+        if(getActualCardType().equals(CardType.SEVEN)) {
+            if (player.isTurn()) {
+                Card[] firstTwoCardsPlayer = new Card[2];
+                Iterator<Card> iterator2 = cardPack.iterator();
 
-            for (int i = 0; i < 2 && iterator.hasNext(); i++) {
-                firstTwoCards[i] = iterator.next();
-            }
-            if (getActualCardType().equals(CardType.SEVEN)) {
+                for (int i = 0; i < 2 && iterator2.hasNext(); i++) {
+                    firstTwoCardsPlayer[i] = iterator2.next();
+                }
                 for (int i = 0; i < 2; i++) {
-                    computer.computerPack.add(firstTwoCards[i]);
-                    cardPack.remove(firstTwoCards[i]);
+                    player.playerPack.add(firstTwoCardsPlayer[i]);
+                    cardPack.remove(firstTwoCardsPlayer[i]);
+                }
+            } else {
+                Card[] firstTwoCardsComputer = new Card[2];
+                Iterator<Card> iterator = cardPack.iterator();
+
+                for (int i = 0; i < 2 && iterator.hasNext(); i++) {
+                    firstTwoCardsComputer[i] = iterator.next();
+                }
+                for (int i = 0; i < 2; i++) {
+                    computer.computerPack.add(firstTwoCardsComputer[i]);
+                    cardPack.remove(firstTwoCardsComputer[i]);
                 }
             }
-        } else if (player.isTurn()) {
-            Card[] firstTwoCards = new Card[2];
-            Iterator<Card> iterator = cardPack.iterator();
+        }
+    }
 
-            for (int i = 0; i < 2 && iterator.hasNext(); i++) {
-                firstTwoCards[i] = iterator.next();
-            }
-            if (getActualCardType().equals(CardType.SEVEN)) {
-                for (int i = 0; i < 2; i++) {
-                    player.playerPack.add(firstTwoCards[i]);
-                    cardPack.remove(firstTwoCards[i]);
-                }
+    public void meldedIsA(){
+        if(getActualCardType().equals(CardType.A)){
+            if(player.isTurn()) {
+                player.setTurn(false);
+            }else{
+                computer.setTurn(false);
             }
         }
     }

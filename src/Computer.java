@@ -33,7 +33,7 @@ public class Computer extends Pack {
                 System.out.println("Computer changed color");
             } else {
                 drawCard();
-                mendedIsSeven();
+                meldedIsSeven();
             }
             setTurn(false);
             player.setTurn(true);

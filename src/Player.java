@@ -37,7 +37,7 @@ public class Player extends Pack{
                 playerPack.remove(card);
                 cardPack.add(card);
             } else {
-            mendedIsSeven();
+            meldedIsSeven();
         }
         return "player played a card";
     }

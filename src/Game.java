@@ -9,17 +9,22 @@ public class Game {
     Console console;
 
     public Game() {
+        pack = new Pack();
         pack.addCardsFromFile(".idea/Cards.txt");
         pack.initializeMelded();
-        pack.startCards();
 
-        computer = new Computer(pack.cardPack, null, player);
-        player = new Player(pack.cardPack, null);
+        computer = new Computer(pack.cardPack, pack.getMelded(), player);
+        player = new Player(pack.cardPack, pack.getMelded());
+
+        pack.setPlayer(player);
+        pack.setComputer(computer);
+
         console = new Console(pack, player, computer);
-        pack = new Pack(computer, player);
 
         player.setTurn(true);
         computer.setTurn(false);
+
+        pack.startCards();
     }
 
     public void play() throws IOException {
