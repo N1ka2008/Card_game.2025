@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -5,21 +6,21 @@ public class Player extends Pack{
 
     private boolean turn;
 
-    public Player(TreeSet<Card> cardPack, Card melded){
+    public Player(ArrayList<Card> cardPack, Card melded){
         super(cardPack, melded);
     }
 
     public Player(){
     }
 
-    public TreeSet<Card> getPlayerPack() {
+    public ArrayList<Card> getPlayerPack() {
         return playerPack;
     }
 
-    public TreeSet<Card> playerPack = new TreeSet<>();
+    public ArrayList<Card> playerPack = new ArrayList<>();
 
     public String playerDrawCard(){
-        Card card = cardPack.first();
+        Card card = cardPack.get(0);
         playerPack.add(card);
         cardPack.remove(card);
         return "player drawed a card";
@@ -53,11 +54,12 @@ public class Player extends Pack{
 
     public void getplayerPack(){
         for(Card card : playerPack){
-            System.out.println("__________________");
-            System.out.println("|" + card.getColor() + " | " + card.getType() + "|");
-            System.out.println("");
-            System.out.println(getPlayerPack().size());
+            System.out.println(" ───────────────");
+            System.out.println("|" + card.getColor() + "  |   " + card.getType() + "|");
+            System.out.println(" ───────────────");
+
         }
+        System.out.println(getPlayerPack().size());
     }
 
     public boolean isTurn() {

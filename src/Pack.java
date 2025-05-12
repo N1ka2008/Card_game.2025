@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
 public class Pack {
 
-    public TreeSet<Card> cardPack = new TreeSet<>();
+    public ArrayList<Card> cardPack = new ArrayList<>();
 
     private Card melded;
     private Player player;
@@ -14,10 +15,10 @@ public class Pack {
 
 
     public Pack() {
-        this.cardPack = new TreeSet<>();
+        this.cardPack = new ArrayList<>();
     }
 
-    public Pack(TreeSet<Card> cardPack, Card melded) {
+    public Pack(ArrayList<Card> cardPack, Card melded) {
         this.cardPack = cardPack;
         this.melded = melded;
         if (melded != null) {
@@ -28,7 +29,7 @@ public class Pack {
 
     public void initializeMelded() {
         if (!cardPack.isEmpty()) {
-            melded = cardPack.last();
+            melded = cardPack.get(cardPack.size() - 1);
             this.actualCardColor = getMelded().getColor();
             this.actualCardType = getMelded().getType();
         }
@@ -50,7 +51,7 @@ public class Pack {
 
     public boolean addCardsFromFile(String name) {
         try {
-            TreeSet<Card> cards = Cards1.readCardsFromFile(name);
+            ArrayList<Card> cards = (ArrayList<Card>) Cards1.readCardsFromFile(name);
             if (cardPack.size() + cards.size() > 32) {
                 System.out.println("The limit is 32 cards");
                 return false;
@@ -159,5 +160,13 @@ public class Pack {
 
     public void setMelded(Card melded) {
         this.melded = melded;
+    }
+
+    public ArrayList<Card> getCardPack() {
+        return cardPack;
+    }
+
+    public void setCardPack(ArrayList<Card> cardPack) {
+        this.cardPack = cardPack;
     }
 }

@@ -1,14 +1,14 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Cards1 {
 
-    public static TreeSet<Card> readCardsFromFile(String filePath) throws IOException {
+    private static final Random random = new Random();
+
+    public static List<Card> readCardsFromFile(String filePath) throws IOException {
+        // Read all cards into a list first
         List<String> cardLines = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
@@ -17,10 +17,11 @@ public class Cards1 {
             cardLines.add(line.trim());
         }
         reader.close();
-        Collections.shuffle(cardLines);//not mine
 
-        TreeSet<Card> cards = new TreeSet<>();
+        // Create list to store cards
+        List<Card> cards = new ArrayList<>();
 
+        // Process lines
         for (String cardLine : cardLines) {
             String[] parts = cardLine.split(";");
             if (parts.length == 2) {
@@ -33,6 +34,9 @@ public class Cards1 {
                 }
             }
         }
+
+        // Shuffle the cards
+        Collections.shuffle(cards);
 
         return cards;
     }

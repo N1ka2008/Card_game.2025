@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -9,16 +10,16 @@ public class Computer extends Pack {
     public Computer() {
     }
 
-    public Computer(TreeSet<Card> cardPack, Card melded, Player player) {
+    public Computer(ArrayList<Card> cardPack, Card melded, Player player) {
         super(cardPack, melded);
         this.player = player;
     }
 
-    public TreeSet<Card> getComputerPack() {
+    public ArrayList<Card> getComputerPack() {
         return computerPack;
     }
 
-    public TreeSet<Card> computerPack = new TreeSet<>();
+    public ArrayList<Card> computerPack = new ArrayList<>();
 
     public void playCard() {
         for(Card card : computerPack) {
@@ -41,7 +42,7 @@ public class Computer extends Pack {
     }
 
     public void drawCard() {
-        Card card = cardPack.first();
+        Card card = cardPack.get(0);
         computerPack.add(card);
        cardPack.remove(card);
         System.out.println("computer drawed a card");

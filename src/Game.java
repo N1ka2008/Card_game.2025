@@ -13,8 +13,9 @@ public class Game {
         pack.addCardsFromFile(".idea/Cards.txt");
         pack.initializeMelded();
 
-        computer = new Computer(pack.cardPack, pack.getMelded(), player);
         player = new Player(pack.cardPack, pack.getMelded());
+        computer = new Computer(pack.cardPack, pack.getMelded(), player);
+
 
         pack.setPlayer(player);
         pack.setComputer(computer);
@@ -29,7 +30,7 @@ public class Game {
 
     public void play() throws IOException {
         try{
-
+            System.out.println(pack.getCardPack());
             player.getplayerPack();
             do{
                 System.out.println("Actual color: " + pack.getActualCardColor()+ "\nActual type: " + pack.getActualCardType());
