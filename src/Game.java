@@ -29,6 +29,8 @@ public class Game {
 
     public void play() throws IOException {
         try{
+
+            player.getplayerPack();
             do{
                 System.out.println("Actual color: " + pack.getActualCardColor()+ "\nActual type: " + pack.getActualCardType());
                 if(computer.isTurn()){

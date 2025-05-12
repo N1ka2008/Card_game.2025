@@ -51,6 +51,15 @@ public class Player extends Pack{
         return "player changed color";
     }
 
+    public void getplayerPack(){
+        for(Card card : playerPack){
+            System.out.println("__________________");
+            System.out.println("|" + card.getColor() + " | " + card.getType() + "|");
+            System.out.println("");
+            System.out.println(getPlayerPack().size());
+        }
+    }
+
     public boolean isTurn() {
         return turn;
     }

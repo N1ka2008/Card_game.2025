@@ -1,17 +1,28 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.TreeSet;
 
 public class Cards1 {
 
     public static TreeSet<Card> readCardsFromFile(String filePath) throws IOException {
-        TreeSet<Card> cards = new TreeSet<>();
+        List<String> cardLines = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
 
         while ((line = reader.readLine()) != null) {
-            String[] parts = line.trim().split(";");
+            cardLines.add(line.trim());
+        }
+        reader.close();
+        Collections.shuffle(cardLines);//not mine
+
+        TreeSet<Card> cards = new TreeSet<>();
+
+        for (String cardLine : cardLines) {
+            String[] parts = cardLine.split(";");
             if (parts.length == 2) {
                 CardType type = parseCardType(parts[0]);
                 CardColor color = parseCardColor(parts[1]);
@@ -23,7 +34,6 @@ public class Cards1 {
             }
         }
 
-        reader.close();
         return cards;
     }
 
