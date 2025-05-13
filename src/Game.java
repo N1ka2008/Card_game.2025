@@ -34,6 +34,7 @@ public class Game {
             player.getplayerPack();
             do{
                 System.out.println("Actual color: " + pack.getActualCardColor()+ "\nActual type: " + pack.getActualCardType());
+                pack.meldedIsA();
                 if(computer.isTurn()){
                     computer.playCard();
                 }else {

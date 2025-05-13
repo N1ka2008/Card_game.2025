@@ -54,9 +54,7 @@ public class Player extends Pack{
 
     public void getplayerPack(){
         for(Card card : playerPack){
-            System.out.println(" ───────────────");
-            System.out.println("|" + card.getColor() + "  |   " + card.getType() + "|");
-            System.out.println(" ───────────────");
+            System.out.println("[" + card.getColor() + " | " + card.getType() + "]");
 
         }
         System.out.println(getPlayerPack().size());

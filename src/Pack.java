@@ -42,11 +42,14 @@ public class Pack {
     }
 
     public void add(Card card) {
-        if(cardPack.size() < 32) {
-            cardPack.add(card);
-        } else{
-            System.out.println("Cannot add card to the pack");
+        if(!cardPack.contains(card)) {
+            if (cardPack.size() < 32) {
+                cardPack.add(card);
+            } else {
+                System.out.println("Cannot add card to the pack");
+            }
         }
+        System.out.println("something went wrong");
     }
 
     public boolean addCardsFromFile(String name) {
@@ -112,14 +115,19 @@ public class Pack {
         }
     }
 
-    public void meldedIsA(){
+    public boolean meldedIsA(){
+        boolean meldedIsA;
         if(getActualCardType().equals(CardType.A)){
+            meldedIsA = true;
             if(player.isTurn()) {
                 player.setTurn(false);
             }else{
                 computer.setTurn(false);
             }
+        }else{
+            meldedIsA = false;
         }
+        return meldedIsA;
     }
 
     public CardType getActualCardType() {

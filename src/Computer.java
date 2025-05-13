@@ -22,23 +22,23 @@ public class Computer extends Pack {
     public ArrayList<Card> computerPack = new ArrayList<>();
 
     public void playCard() {
-        for(Card card : computerPack) {
-            if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
-                computerPack.remove(card);
-                cardPack.add(card);
-                System.out.println("Computer played card");
-            }else if(card.getType().equals(CardType.J)) {
-                changeColor();
-                computerPack.remove(card);
-                cardPack.add(card);
-                System.out.println("Computer changed color");
-            } else {
-                drawCard();
-                meldedIsSeven();
+            for (Card card : computerPack) {
+                if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
+                    computerPack.remove(card);
+                    cardPack.add(card);
+                    System.out.println("Computer played card");
+                } else if (card.getType().equals(CardType.J)) {
+                    changeColor();
+                    computerPack.remove(card);
+                    cardPack.add(card);
+                    System.out.println("Computer changed color");
+                } else {
+                    drawCard();
+                    meldedIsSeven();
+                }
+                setTurn(false);
+                player.setTurn(true);
             }
-            setTurn(false);
-            player.setTurn(true);
-        }
     }
 
     public void drawCard() {
