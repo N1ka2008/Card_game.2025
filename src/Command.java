@@ -16,7 +16,4 @@ public abstract class Command {
         return false;
     }
 
-    public String execute(String color, String type) {
-        return null;
-    }
 }

@@ -30,13 +30,25 @@ public class Player extends Pack{
         Card card = new Card();
         card.setColor(CardColor.valueOf(color));
         card.setType(CardType.valueOf(type));
-        if(card.getType().equals(CardType.J)){
+        Card cardToPlay = null;
+        for (Card card1 : playerPack) {
+            if (card1.getColor().equals(color) && card.getType().equals(type)) {
+                cardToPlay = card1;
+                break;
+            }
+        }
+
+        if (cardToPlay == null) {
+            return "Card not found in your hand";
+        }
+
+        if(cardToPlay.getType().equals(CardType.J)){
             playerChangeColor();
-            playerPack.remove(card);
-            cardPack.add(card);
-        }else if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
-                playerPack.remove(card);
-                cardPack.add(card);
+            playerPack.remove(cardToPlay);
+            cardPack.add(cardToPlay);
+        }else if (cardToPlay.getColor().equals(getActualCardColor()) || cardToPlay.getType().equals(getActualCardType())) {
+                playerPack.remove(cardToPlay);
+                cardPack.add(cardToPlay);
             } else {
             meldedIsSeven();
         }

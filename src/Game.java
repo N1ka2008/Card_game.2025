@@ -7,6 +7,7 @@ public class Game {
     Player player;
     Pack pack;
     Console console;
+    private boolean gameIsOver = false;
 
     public Game() {
         pack = new Pack();
@@ -15,7 +16,6 @@ public class Game {
 
         player = new Player(pack.cardPack, pack.getMelded());
         computer = new Computer(pack.cardPack, pack.getMelded(), player);
-
 
         pack.setPlayer(player);
         pack.setComputer(computer);
@@ -34,15 +34,28 @@ public class Game {
             player.getplayerPack();
             do{
                 System.out.println("Actual color: " + pack.getActualCardColor()+ "\nActual type: " + pack.getActualCardType());
-                pack.meldedIsA();
+
+                boolean skipTurn = pack.meldedIsA();
+                if (skipTurn) {
+                    System.out.println("An Ace was played! Turn is skipped.");
+                }
+                
                 if(computer.isTurn()){
                     computer.playCard();
                 }else {
                     console.start();
                 }
-            }while(console.start());
+            }while(!isGameIsOver());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean isGameIsOver() {
+        return gameIsOver;
+    }
+
+    public void setGameIsOver(boolean gameIsOver) {
+        this.gameIsOver = gameIsOver;
     }
 }

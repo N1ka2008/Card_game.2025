@@ -9,8 +9,6 @@ public class DrawACard extends Command{
         this.computer = computer;
     }
 
-
-
     @Override
     public boolean execute(String argument) {
         if(argument.equalsIgnoreCase("card")){

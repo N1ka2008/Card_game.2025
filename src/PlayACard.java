@@ -9,11 +9,41 @@ public class PlayACard extends Command{
     }
 
     @Override
-    public String execute(String color, String type) {
-        player.playerPlayCard(color, type);
-        player.setTurn(false);
-        computer.setTurn(true);
-        return null;
+    public boolean execute(String argument) {
+        String[] parts = argument.split(" ");
+        if (parts.length != 2) {
+            System.out.println("Invalid format! Use: play COLOR TYPE");
+            return false;
+        }
+
+        String color = parts[0].toUpperCase();
+        String type = parts[1].toUpperCase();
+
+        try {
+            CardColor cardColor = CardColor.valueOf(color);
+            CardType cardType = CardType.valueOf(type);
+
+            boolean hasCard = false;
+            for (Card card : player.playerPack) {
+                if (card.getColor() == cardColor && card.getType() == cardType) {
+                    hasCard = true;
+                    break;
+                }
+            }
+
+            if (!hasCard) {
+                System.out.println("You dont have this card in your hand");
+                return false;
+            }
+
+            player.playerPlayCard(color, type);
+            player.setTurn(false);
+            computer.setTurn(true);
+            return true;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid card details! Check color and type spelling.");
+            return false;
+        }
     }
 
     public boolean exit() {

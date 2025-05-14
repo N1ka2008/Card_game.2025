@@ -121,8 +121,10 @@ public class Pack {
             meldedIsA = true;
             if(player.isTurn()) {
                 player.setTurn(false);
+                computer.setTurn(true);
             }else{
                 computer.setTurn(false);
+                player.setTurn(true);
             }
         }else{
             meldedIsA = false;

@@ -4,7 +4,6 @@ public class Card implements Comparable<Card> {
     private CardColor color;
     private boolean specialCard;
 
-    //chat gpt pomohl
     @Override
     public int compareTo(Card o) {
         int result = this.type.compareTo(o.type);
@@ -31,7 +30,7 @@ public class Card implements Comparable<Card> {
         return specialCard;
     }
 
-    public String numberCards(){
+   /* public String numberCards(){
         if(type == CardType.SEVEN || type == CardType.EIGHT || type == CardType.NINE || type == CardType.TEN) {
             System.out.println(type.getHodnota());
         }else {
@@ -39,6 +38,8 @@ public class Card implements Comparable<Card> {
         }
         return null;
     }
+
+    */
 
     public boolean isSpecialCard() {
         return specialCard;
@@ -67,9 +68,8 @@ public class Card implements Comparable<Card> {
     @Override
     public String toString() {
         return "Card{" +
-                "type=" + numberCards() +
+                "type=" + type +
                 ", color=" + color +
-                ", specialCard=" + specialCard +
                 '}';
     }
 }

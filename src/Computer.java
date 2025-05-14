@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.TreeSet;
 
 public class Computer extends Pack {
 
@@ -22,23 +21,44 @@ public class Computer extends Pack {
     public ArrayList<Card> computerPack = new ArrayList<>();
 
     public void playCard() {
-            for (Card card : computerPack) {
-                if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
-                    computerPack.remove(card);
-                    cardPack.add(card);
-                    System.out.println("Computer played card");
-                } else if (card.getType().equals(CardType.J)) {
-                    changeColor();
-                    computerPack.remove(card);
-                    cardPack.add(card);
-                    System.out.println("Computer changed color");
-                } else {
-                    drawCard();
-                    meldedIsSeven();
-                }
-                setTurn(false);
-                player.setTurn(true);
+        System.out.println("\nComputer's turn...");
+
+        boolean hasPlayedCard = false;
+
+        for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
+            Card card = iterator.next();
+            if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
+                System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
+                iterator.remove();
+                cardPack.add(card);
+                setActualCardColor(card.getColor());
+                setActualCardType(card.getType());
+                hasPlayedCard = true;
+                break;
             }
+        }
+
+        if (!hasPlayedCard) {
+            for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
+                Card card = iterator.next();
+                if (card.getType().equals(CardType.J)) {
+                    System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
+                    iterator.remove();
+                    cardPack.add(card);
+                    setActualCardType(card.getType());
+                    changeColor();
+                    System.out.println("Computer changed color to: " + getActualCardColor());
+                    hasPlayedCard = true;
+                    break;
+                }
+            }
+        }
+        if (!hasPlayedCard) {
+            drawCard();
+        }
+        meldedIsSeven();
+        setTurn(false);
+        player.setTurn(true);
     }
 
     public void drawCard() {
