@@ -21,7 +21,7 @@ public class Computer extends Pack {
     public ArrayList<Card> computerPack = new ArrayList<>();
 
     public void playCard() {
-        System.out.println("\nComputer's turn...");
+        System.out.println("\nComputers turn");
 
         boolean hasPlayedCard = false;
 
