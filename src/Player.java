@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.TreeSet;
 
 public class Player extends Pack{
 

@@ -12,8 +12,6 @@ public class Pack {
     private CardColor actualCardColor;
     private CardType actualCardType;
 
-
-
     public Pack() {
         this.cardPack = new ArrayList<>();
     }

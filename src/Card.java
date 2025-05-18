@@ -1,17 +1,9 @@
-public class Card implements Comparable<Card> {
+public class Card {
 
     private CardType type;
     private CardColor color;
     private boolean specialCard;
 
-    @Override
-    public int compareTo(Card o) {
-        int result = this.type.compareTo(o.type);
-        if (result != 0) {
-            return result;
-        }
-        return this.color.compareTo(o.color);
-    }
 
     public Card() {
     }
@@ -29,17 +21,6 @@ public class Card implements Comparable<Card> {
         }
         return specialCard;
     }
-
-   /* public String numberCards(){
-        if(type == CardType.SEVEN || type == CardType.EIGHT || type == CardType.NINE || type == CardType.TEN) {
-            System.out.println(type.getHodnota());
-        }else {
-           return type.name();
-        }
-        return null;
-    }
-
-    */
 
     public boolean isSpecialCard() {
         return specialCard;

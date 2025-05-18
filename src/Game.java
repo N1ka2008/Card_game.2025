@@ -8,6 +8,7 @@ public class Game {
     Pack pack;
     Console console;
     private boolean gameIsOver = false;
+    SavingFiles savingFiles;
 
     public Game() {
         pack = new Pack();
@@ -17,10 +18,12 @@ public class Game {
         player = new Player(pack.cardPack, pack.getMelded());
         computer = new Computer(pack.cardPack, pack.getMelded(), player);
 
+        savingFiles = new SavingFiles(computer, player, pack);
+
         pack.setPlayer(player);
         pack.setComputer(computer);
 
-        console = new Console(pack, player, computer);
+        console = new Console(pack, player, computer, savingFiles);
 
         player.setTurn(true);
         computer.setTurn(false);
