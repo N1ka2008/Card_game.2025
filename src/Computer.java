@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 public class Computer extends Pack {
 
@@ -50,6 +51,11 @@ public class Computer extends Pack {
                     System.out.println("Computer changed color to: " + getActualCardColor());
                     hasPlayedCard = true;
                     break;
+                }
+                if(card.getType().equals(CardType.K) && card.getColor().equals(CardColor.SPADES)) {
+                    spadesK();
+                    System.out.println("Computer has played spades K");
+                    hasPlayedCard = true;
                 }
             }
         }
@@ -103,6 +109,19 @@ public class Computer extends Pack {
             }
 
         }
+    }
+
+    Random rd = new Random();
+
+    public void spadesK(){
+        int number;
+        Card card = cardPack.get(0);
+            number = rd.nextInt(1);
+            if (number == 1) {
+                computerPack.add(card);
+                cardPack.remove(card);
+                System.out.println("Computer has drawed one extra card");
+            }
     }
 
     public boolean isTurn() {
