@@ -28,6 +28,7 @@ public class Console {
         map.put("exit", new Exit());
         map.put("save", new SaveGame(savingFiles));
         map.put("load", new LoadGame(savingFiles));
+        map.put("Show", new GetPlayerPack(player));
     }
 
     private void execute(){

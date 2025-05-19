@@ -38,7 +38,7 @@ public class Player extends Pack{
         }
 
         if (cardToPlay == null) {
-            return "Card not found in your hand";
+            return "You dont have this card";
         }
 
         if(cardToPlay.getType().equals(CardType.J)){
@@ -48,8 +48,9 @@ public class Player extends Pack{
         }else if (cardToPlay.getColor().equals(getActualCardColor()) || cardToPlay.getType().equals(getActualCardType())) {
                 playerPack.remove(cardToPlay);
                 cardPack.add(cardToPlay);
-            } else {
-            meldedIsSeven();
+        } else if (cardToPlay.getColor().equals(CardColor.SPADES) && cardToPlay.getType().equals(CardType.K)) {
+            playerSpadesK();
+            //meldedIsSeven();
         }
         return "player played a card";
     }
@@ -63,10 +64,29 @@ public class Player extends Pack{
         return "player changed color";
     }
 
+    public void playerSpadesK(){
+        Card card = cardPack.get(0);
+        //boolean yesOrNo;
+        System.out.println("Do you want to draw one extra card?");
+        String choice = sc.next();
+            switch (choice) {
+                case "yes":
+                    playerPack.add(card);
+                    cardPack.remove(card);
+                    break;
+                    case "no":
+                        System.out.println("No cards added");
+                        break;
+                        default:
+                            System.out.println("Invalid choice");
+                            break;
+            }
+
+    }
+
     public void getplayerPack(){
         for(Card card : playerPack){
             System.out.println("[" + card.getColor() + " | " + card.getType() + "]");
-
         }
         System.out.println(getPlayerPack().size());
     }

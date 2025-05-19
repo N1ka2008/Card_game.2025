@@ -54,7 +54,7 @@ public class Computer extends Pack {
                 }
                 if(card.getType().equals(CardType.K) && card.getColor().equals(CardColor.SPADES)) {
                     spadesK();
-                    System.out.println("Computer has played spades K");
+                    System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
                     hasPlayedCard = true;
                 }
             }
@@ -120,7 +120,7 @@ public class Computer extends Pack {
             if (number == 1) {
                 computerPack.add(card);
                 cardPack.remove(card);
-                System.out.println("Computer has drawed one extra card");
+                System.out.println("Computer drawed one extra card");
             }
     }
 
