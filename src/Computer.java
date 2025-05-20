@@ -52,8 +52,8 @@ public class Computer extends Pack {
                     hasPlayedCard = true;
                     break;
                 }
-                if(card.getType().equals(CardType.K) && card.getColor().equals(CardColor.SPADES)) {
-                    spadesK();
+                if(card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
+                    DiamondsK();
                     System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
                     hasPlayedCard = true;
                 }
@@ -113,7 +113,7 @@ public class Computer extends Pack {
 
     Random rd = new Random();
 
-    public void spadesK(){
+    public void DiamondsK(){
         int number;
         Card card = cardPack.get(0);
             number = rd.nextInt(1);

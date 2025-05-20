@@ -12,7 +12,7 @@ public class PlayACard extends Command{
     public boolean execute(String argument) {
         String[] parts = argument.split(" ");
         if (parts.length != 2) {
-            System.out.println("Invalid format! Use: play COLOR TYPE");
+            System.out.println("Invalid format. Use: play COLOR TYPE");
             return false;
         }
 
@@ -41,7 +41,7 @@ public class PlayACard extends Command{
             computer.setTurn(true);
             return true;
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid card details! Check color and type spelling.");
+            System.out.println("Invalid card details! Check color and type");
             return false;
         }
     }

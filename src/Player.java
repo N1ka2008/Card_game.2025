@@ -48,9 +48,10 @@ public class Player extends Pack{
         }else if (cardToPlay.getColor().equals(getActualCardColor()) || cardToPlay.getType().equals(getActualCardType())) {
                 playerPack.remove(cardToPlay);
                 cardPack.add(cardToPlay);
-        } else if (cardToPlay.getColor().equals(CardColor.SPADES) && cardToPlay.getType().equals(CardType.K)) {
-            playerSpadesK();
-            //meldedIsSeven();
+        } else if (cardToPlay.getColor().equals(CardColor.DIAMONDS) && cardToPlay.getType().equals(CardType.K)) {
+            playerDiamondsK();
+        } else{
+            meldedIsSeven();
         }
         return "player played a card";
     }
@@ -64,9 +65,8 @@ public class Player extends Pack{
         return "player changed color";
     }
 
-    public void playerSpadesK(){
+    public void playerDiamondsK(){
         Card card = cardPack.get(0);
-        //boolean yesOrNo;
         System.out.println("Do you want to draw one extra card?");
         String choice = sc.next();
             switch (choice) {
