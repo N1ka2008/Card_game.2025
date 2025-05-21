@@ -34,7 +34,11 @@ public class Computer extends Pack {
                 cardPack.add(card);
                 setActualCardColor(card.getColor());
                 setActualCardType(card.getType());
-                hasPlayedCard = true;
+                if(card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
+                    DiamondsK();
+                }
+                    hasPlayedCard = true;
+
                 break;
             }
         }
@@ -52,11 +56,7 @@ public class Computer extends Pack {
                     hasPlayedCard = true;
                     break;
                 }
-                if(card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
-                    DiamondsK();
-                    System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
-                    hasPlayedCard = true;
-                }
+
             }
         }
         if (!hasPlayedCard) {

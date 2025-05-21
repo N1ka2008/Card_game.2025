@@ -13,7 +13,6 @@ public class GetPlayerPack extends Command{
         return true;
     }
 
-
     public boolean exit() {
         return false;
     }
