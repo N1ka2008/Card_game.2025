@@ -26,34 +26,35 @@ public class Player extends Pack{
     }
 
     public String playerPlayCard(String color, String type){
-        Card card = new Card();
-        card.setColor(CardColor.valueOf(color));
-        card.setType(CardType.valueOf(type));
-        Card cardToPlay = null;
-        for (Card card1 : playerPack) {
-            if (card1.getColor().equals(color) && card.getType().equals(type)) {
-                cardToPlay = card1;
-                break;
+        if(!meldedIsSeven()) {
+            Card card = new Card();
+            card.setColor(CardColor.valueOf(color));
+            card.setType(CardType.valueOf(type));
+            Card cardToPlay = null;
+            for (Card card1 : playerPack) {
+                if (card1.getColor().equals(color) && card.getType().equals(type)) {
+                    cardToPlay = card1;
+                    break;
+                }
             }
-        }
 
-        if (cardToPlay == null) {
-            return "You dont have this card";
-        }
+            if (cardToPlay == null) {
+                return "You dont have this card";
+            }
 
-        if(cardToPlay.getType().equals(CardType.J)){
-            playerChangeColor();
-            playerPack.remove(cardToPlay);
-            cardPack.add(cardToPlay);
-        }else if (cardToPlay.getColor().equals(getActualCardColor()) || cardToPlay.getType().equals(getActualCardType())) {
+            if (cardToPlay.getType().equals(CardType.J)) {
+                playerChangeColor();
                 playerPack.remove(cardToPlay);
                 cardPack.add(cardToPlay);
-        } else if (cardToPlay.getColor().equals(CardColor.DIAMONDS) && cardToPlay.getType().equals(CardType.K)) {
-            playerDiamondsK();
-        } else{
-            meldedIsSeven();
+            } else if (cardToPlay.getColor().equals(getActualCardColor()) || cardToPlay.getType().equals(getActualCardType())) {
+                playerPack.remove(cardToPlay);
+                cardPack.add(cardToPlay);
+            } else if (cardToPlay.getColor().equals(CardColor.DIAMONDS) && cardToPlay.getType().equals(CardType.K)) {
+                playerDiamondsK();
+            }
+            return "player played a card";
         }
-        return "player played a card";
+        return null;
     }
 
     Scanner sc = new Scanner(System.in);

@@ -22,49 +22,61 @@ public class Computer extends Pack {
     public ArrayList<Card> computerPack = new ArrayList<>();
 
     public void playCard() {
-        System.out.println("\nComputers turn");
+        if(!meldedIsSeven()) {
+            System.out.println("\nComputers turn");
 
-        boolean hasPlayedCard = false;
+            boolean hasPlayedCard = false;
 
-        for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
-            Card card = iterator.next();
-            if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
-                System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
-                iterator.remove();
-                cardPack.add(card);
-                setActualCardColor(card.getColor());
-                setActualCardType(card.getType());
-                if(card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
-                    DiamondsK();
-                }
-                    hasPlayedCard = true;
-
-                break;
-            }
-        }
-
-        if (!hasPlayedCard) {
             for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
                 Card card = iterator.next();
-                if (card.getType().equals(CardType.J)) {
+                if (card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
                     System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
                     iterator.remove();
                     cardPack.add(card);
+                    setActualCardColor(card.getColor());
                     setActualCardType(card.getType());
-                    changeColor();
-                    System.out.println("Computer changed color to: " + getActualCardColor());
+                    DiamondsK();
                     hasPlayedCard = true;
                     break;
                 }
-
             }
+
+            if (!hasPlayedCard) {
+                for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
+                    Card card = iterator.next();
+                    if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
+                        System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
+                        iterator.remove();
+                        cardPack.add(card);
+                        setActualCardColor(card.getColor());
+                        setActualCardType(card.getType());
+                        hasPlayedCard = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!hasPlayedCard) {
+                for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
+                    Card card = iterator.next();
+                    if (card.getType().equals(CardType.J)) {
+                        System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
+                        iterator.remove();
+                        cardPack.add(card);
+                        setActualCardType(card.getType());
+                        changeColor();
+                        System.out.println("Computer changed color to: " + getActualCardColor());
+                        hasPlayedCard = true;
+                        break;
+                    }
+                }
+            }
+            if (!hasPlayedCard) {
+                drawCard();
+            }
+            setTurn(false);
+            player.setTurn(true);
         }
-        if (!hasPlayedCard) {
-            drawCard();
-        }
-        meldedIsSeven();
-        setTurn(false);
-        player.setTurn(true);
     }
 
     public void drawCard() {
@@ -116,7 +128,7 @@ public class Computer extends Pack {
     public void DiamondsK(){
         int number;
         Card card = cardPack.get(0);
-            number = rd.nextInt(1);
+            number = rd.nextInt(2);
             if (number == 1) {
                 computerPack.add(card);
                 cardPack.remove(card);

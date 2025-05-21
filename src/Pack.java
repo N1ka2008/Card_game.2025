@@ -85,8 +85,8 @@ public class Pack {
         }
     }
 
-    public void meldedIsSeven(){
-        if(getActualCardType().equals(CardType.SEVEN)) {
+    public boolean meldedIsSeven(){
+        if(melded.getType().equals(CardType.SEVEN)) {
             if (player.isTurn()) {
                 Card[] firstTwoCardsPlayer = new Card[2];
                 Iterator<Card> iterator2 = cardPack.iterator();
@@ -98,6 +98,8 @@ public class Pack {
                     player.playerPack.add(firstTwoCardsPlayer[i]);
                     cardPack.remove(firstTwoCardsPlayer[i]);
                 }
+                player.setTurn(false);
+                computer.setTurn(true);
             } else {
                 Card[] firstTwoCardsComputer = new Card[2];
                 Iterator<Card> iterator = cardPack.iterator();
@@ -109,8 +111,12 @@ public class Pack {
                     computer.computerPack.add(firstTwoCardsComputer[i]);
                     cardPack.remove(firstTwoCardsComputer[i]);
                 }
+                computer.setTurn(false);
+                player.setTurn(true);
             }
+            return true;
         }
+        return false;
     }
 
     public boolean meldedIsA(){
