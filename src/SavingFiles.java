@@ -27,7 +27,7 @@ public class SavingFiles {
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             oos.writeObject(gameState);
-            System.out.println("Game svaed successfully");
+            System.out.println("Game svaed successfully!!");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -43,7 +43,7 @@ public class SavingFiles {
             player = (Player) gameState.get(1);
             pack = (Pack) gameState.get(2);
 
-            System.out.println("game loaded!");
+            System.out.println("game loaded successfully!!!");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

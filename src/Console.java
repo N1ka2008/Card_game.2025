@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Console {
@@ -28,7 +29,7 @@ public class Console {
         map.put("exit", new Exit());
         map.put("save", new SaveGame(savingFiles));
         map.put("load", new LoadGame(savingFiles));
-        map.put("Show", new GetPlayerPack(player));
+        map.put("show", new GetPlayerPack(player));
     }
 
     private void execute(){
@@ -40,7 +41,7 @@ public class Console {
         
         Command cmd = map.get(command);
         if (cmd != null) {
-            cmd.execute(argument);
+            cmd.execute(argument.toUpperCase());
             if (cmd instanceof Exit) {
                 exit = true;
             }

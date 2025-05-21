@@ -1,8 +1,7 @@
 import java.io.IOException;
 
 public class Game {
-
-    Cards1 cards;
+    
     Computer computer;
     Player player;
     Pack pack;

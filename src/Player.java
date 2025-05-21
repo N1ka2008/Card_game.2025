@@ -60,7 +60,7 @@ public class Player extends Pack{
     public String playerChangeColor(){
         Card card = new Card();
         System.out.println("Type a color you want to change to: ");
-        card.setColor(CardColor.valueOf(sc.next()));
+        card.setColor(CardColor.valueOf(sc.next().toUpperCase()));
         setActualCardColor(card.getColor());
         return "player changed color";
     }
