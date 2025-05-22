@@ -1,7 +1,10 @@
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Player extends Pack{
+public class Player extends Pack implements Serializable {
 
     private boolean turn;
 
@@ -27,37 +30,54 @@ public class Player extends Pack{
 
     public String playerPlayCard(String color, String type){
         if(!meldedIsSeven()) {
-            Card card = new Card();
-            card.setColor(CardColor.valueOf(color));
-            card.setType(CardType.valueOf(type));
+            CardColor cardColor = CardColor.valueOf(color);
+            CardType cardType = CardType.valueOf(type);
+
             Card cardToPlay = null;
-            for (Card card1 : playerPack) {
-                if (card1.getColor().equals(color) && card.getType().equals(type)) {
-                    cardToPlay = card1;
+            for (Card card : playerPack) {
+                if (card.getColor().equals(cardColor) && card.getType().equals(cardType)) {
+                    cardToPlay = card;
                     break;
                 }
             }
-
             if (cardToPlay == null) {
                 return "You dont have this card";
             }
-
             if (cardToPlay.getType().equals(CardType.J)) {
                 playerChangeColor();
                 playerPack.remove(cardToPlay);
                 cardPack.add(cardToPlay);
-            } else if (cardToPlay.getColor().equals(getActualCardColor()) || cardToPlay.getType().equals(getActualCardType())) {
+                //setActualCardType(cardToPlay.getType());
+                return "Player played a J card and changed color";
+            }
+            else if (cardToPlay.getType().equals(CardType.K) && cardToPlay.getColor().equals(CardColor.DIAMONDS)) {
                 playerPack.remove(cardToPlay);
                 cardPack.add(cardToPlay);
-            } else if (cardToPlay.getColor().equals(CardColor.DIAMONDS) && cardToPlay.getType().equals(CardType.K)) {
+                //setActualCardColor(cardToPlay.getColor());
+                //setActualCardType(cardToPlay.getType());
                 playerDiamondsK();
+                return "Player played a K of Diamonds";
             }
-            return "player played a card";
+            else if (cardToPlay.getColor().equals(getActualCardColor()) || cardToPlay.getType().equals(getActualCardType())) {
+                playerPack.remove(cardToPlay);
+                cardPack.add(cardToPlay);
+                //setActualCardColor(cardToPlay.getColor());
+                //setActualCardType(cardToPlay.getType());
+                return "Player played a card: [" + cardToPlay.getColor() + " | " + cardToPlay.getType() + "]";
+            } else {
+                return "You cannot play this card";
+            }
         }
         return null;
     }
 
-    Scanner sc = new Scanner(System.in);
+    transient Scanner sc = new Scanner(System.in);
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        sc = new Scanner(System.in);
+    }
+
     public String playerChangeColor(){
         Card card = new Card();
         System.out.println("Type a color you want to change to: ");
@@ -85,7 +105,7 @@ public class Player extends Pack{
 
     }
 
-    public void getplayerPack(){
+    public void getplayersCards(){
         for(Card card : playerPack){
             System.out.println("[" + card.getColor() + " | " + card.getType() + "]");
         }

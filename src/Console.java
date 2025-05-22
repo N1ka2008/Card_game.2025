@@ -1,11 +1,11 @@
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Console {
 
     Scanner sc = new Scanner(System.in);
+    private boolean gameIsOver = false;
 
     private boolean exit = false;
     private HashMap<String, Command> map = new HashMap<>();
@@ -52,13 +52,20 @@ public class Console {
 
     public boolean start() throws IOException {
         inicialization();
-        if(exit == false){
+        if (exit == false) {
             execute();
             return true;
-        }
-        else{
+        } else {
+            gameIsOver = true;
             return false;
         }
     }
 
+    public boolean isGameIsOver() {
+        return gameIsOver;
+    }
+
+    public void setGameIsOver(boolean gameIsOver) {
+        this.gameIsOver = gameIsOver;
+    }
 }

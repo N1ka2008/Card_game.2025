@@ -1,12 +1,12 @@
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Game {
+public class Game implements Serializable {
     
     Computer computer;
     Player player;
     Pack pack;
     Console console;
-    private boolean gameIsOver = false;
     SavingFiles savingFiles;
 
     public Game() {
@@ -30,11 +30,23 @@ public class Game {
         pack.startCards();
     }
 
+    public String gameOver(){
+        if(player.getPlayerPack().isEmpty()){
+            console.setGameIsOver(true);
+            return "Player is the winner";
+        }else if(computer.getComputerPack().isEmpty()){
+            console.setGameIsOver(true);
+            return "Computer is the winner";
+        }
+        return "";
+    }
+
     public void play() throws IOException {
         try{
             System.out.println(pack.getCardPack());
-            player.getplayerPack();
+            player.getplayersCards();
             do{
+                pack.initializeMelded();
                 System.out.println("Actual color: " + pack.getActualCardColor()+ "\nActual type: " + pack.getActualCardType());
 
                 boolean skipTurn = pack.meldedIsA();
@@ -47,17 +59,12 @@ public class Game {
                 }else {
                     console.start();
                 }
-            }while(!isGameIsOver());
+
+                gameOver();
+            }while(!console.isGameIsOver());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public boolean isGameIsOver() {
-        return gameIsOver;
-    }
-
-    public void setGameIsOver(boolean gameIsOver) {
-        this.gameIsOver = gameIsOver;
-    }
 }

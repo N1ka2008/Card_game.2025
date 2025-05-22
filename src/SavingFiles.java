@@ -1,12 +1,11 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SavingFiles {
 
-    Computer computer;
-    Player player;
-    Pack pack;
+    private Computer computer;
+    private Player player;
+    private Pack pack;
 
     public SavingFiles(Computer computer, Player player, Pack pack) {
         this.computer = computer;
@@ -15,41 +14,49 @@ public class SavingFiles {
     }
 
     public void save(String fileName) {
-        File file = new File(fileName);
-        if (file.exists()) {
-            file.delete();
-        }
+        try {
+            File file = new File(fileName);
+            if (file.exists()) {
+                file.delete();
+            }
 
-        List<Serializable> gameState = new ArrayList<>();
-        gameState.add((Serializable) computer);
-        gameState.add((Serializable) player);
-        gameState.add((Serializable) pack);
+            ArrayList<Object> gameState = new ArrayList<>();
+            gameState.add(computer);
+            gameState.add(player);
+            gameState.add(pack);
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
-            oos.writeObject(gameState);
-            System.out.println("Game svaed successfully!!");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
+                oos.writeObject(gameState);
+                System.out.println("Game saved successfully!");
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Error saving game: " + e.getMessage());
         }
     }
 
     public void load(String fileName) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
-            List<Serializable> gameState = (List<Serializable>) ois.readObject();
+        try {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+                ArrayList<Object> gameState = (ArrayList<Object>) ois.readObject();
 
-            computer = (Computer) gameState.get(0);
-            player = (Player) gameState.get(1);
-            pack = (Pack) gameState.get(2);
+                this.computer = (Computer) gameState.get(0);
+                this.player = (Player) gameState.get(1);
+                this.pack = (Pack) gameState.get(2);
 
-            System.out.println("game loaded successfully!!!");
+                pack.setPlayer(player);
+                pack.setComputer(computer);
+                computer.player = player;
+
+                System.out.println("Game loaded successfully!");
+            }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.err.println("Save file not found: " + e.getMessage());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println("Error loading game: " + e.getMessage());
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.err.println("Class not found when loading game: " + e.getMessage());
+        } catch (ClassCastException e) {
+            System.err.println("Error casting loaded objects: " + e.getMessage());
         }
     }
 }

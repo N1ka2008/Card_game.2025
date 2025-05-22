@@ -7,7 +7,7 @@ public class Exit extends Command{
     }
 
     public boolean exit() {
-
+        System.out.println("Game over!");
         return true;
     }
 }

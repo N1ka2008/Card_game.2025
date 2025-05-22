@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-public class Pack {
+public class Pack implements Serializable {
 
     public ArrayList<Card> cardPack = new ArrayList<>();
 
