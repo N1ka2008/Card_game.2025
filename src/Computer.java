@@ -24,6 +24,7 @@ public class Computer extends Pack implements Serializable {
 
     public ArrayList<Card> computerPack = new ArrayList<>();
 
+    //zaklad muj, s Iterator<Card> pomohl chat
     public void playCard() {
         if(!meldedIsSeven()) {
             System.out.println("\nComputers turn");
@@ -32,7 +33,7 @@ public class Computer extends Pack implements Serializable {
                 for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
                     Card card = iterator.next();
                     if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
-                        System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
+                        System.out.println("Computer played: " + card.toString());
                         iterator.remove();
                         cardPack.add(card);
                         if (card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
@@ -48,7 +49,7 @@ public class Computer extends Pack implements Serializable {
                 for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
                     Card card = iterator.next();
                     if (card.getType().equals(CardType.J)) {
-                        System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
+                        System.out.println("Computer played: " + card.toString());
                         iterator.remove();
                         cardPack.add(card);
                         changeColor();
@@ -71,7 +72,7 @@ public class Computer extends Pack implements Serializable {
     public void drawCard() {
         Card card = cardPack.get(0);
         computerPack.add(card);
-       cardPack.remove(card);
+        cardPack.remove(card);
         System.out.println("computer drew a card");
     }
 

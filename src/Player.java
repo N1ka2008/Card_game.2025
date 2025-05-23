@@ -25,7 +25,7 @@ public class Player extends Pack implements Serializable {
         Card card = cardPack.get(0);
         playerPack.add(card);
         cardPack.remove(card);
-        return "player drew a card";
+        return "player drew a card" + card.toString();
     }
 
     public String playerPlayCard(String color, String type){
@@ -58,7 +58,7 @@ public class Player extends Pack implements Serializable {
             else if (cardToPlay.getColor().equals(getActualCardColor()) || cardToPlay.getType().equals(getActualCardType())) {
                 playerPack.remove(cardToPlay);
                 cardPack.add(cardToPlay);
-                return "Player played a card: [" + cardToPlay.getColor() + " | " + cardToPlay.getType() + "]";
+                return "Player played a card: " + cardToPlay.toString();
             } else {
                 return "You cannot play this card";
             }
@@ -108,10 +108,11 @@ public class Player extends Pack implements Serializable {
     }
 
     public void getplayersCards(){
+        System.out.println("\nPlayers cards: ");
         for(Card card : playerPack){
             System.out.println("[" + card.getColor() + " | " + card.getType() + "]");
         }
-        System.out.println(getPlayerPack().size());
+        System.out.println("player has: " + getPlayerPack().size() + " cards");
     }
 
     public boolean isTurn() {

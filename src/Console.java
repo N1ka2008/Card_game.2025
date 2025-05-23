@@ -13,13 +13,13 @@ public class Console {
     Pack pack;
     Player player;
     Computer computer;
-    SavingFiles savingFiles;
+    Files files;
 
-   public Console(Pack pack, Player player, Computer computer, SavingFiles savingFiles) {
+   public Console(Pack pack, Player player, Computer computer, Files files) {
         this.pack = pack;
         this.player = player;
         this.computer = computer;
-        this.savingFiles = savingFiles;
+        this.files = files;
     }
 
 
@@ -27,9 +27,10 @@ public class Console {
         map.put("draw", new DrawACard(player, computer));
         map.put("play", new PlayACard(player, computer));
         map.put("exit", new Exit());
-        map.put("save", new SaveGame(savingFiles));
-        map.put("load", new LoadGame(savingFiles));
+        map.put("save", new SaveGame(files, this));
+        map.put("load", new LoadGame(files));
         map.put("show", new GetPlayerPack(player));
+        map.put("see", new SeeManual(files));
     }
 
     private void execute(){

@@ -59,10 +59,9 @@ public class Pack implements Serializable {
                 return false;
             }
             cardPack.addAll(cards);
-            System.out.println("Pack contains" + cards.size());
             return true;
         } catch (Exception e) {
-            System.err.println("Error loading cards from file: " + e.getMessage());
+            System.err.println("Cannot load cards from file: " + e.getMessage());
             return false;
         }
     }

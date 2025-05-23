@@ -1,8 +1,8 @@
 public class LoadGame extends Command{
 
-    private SavingFiles savingFiles;
+    private Files savingFiles;
 
-    public LoadGame(SavingFiles savingFiles) {
+    public LoadGame(Files savingFiles) {
         this.savingFiles = savingFiles;
     }
 

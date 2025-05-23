@@ -7,7 +7,7 @@ public class Game implements Serializable {
     Player player;
     Pack pack;
     Console console;
-    SavingFiles savingFiles;
+    Files files;
 
     public Game() {
         pack = new Pack();
@@ -39,28 +39,32 @@ public class Game implements Serializable {
             pack.meldedIsSeven();
         }
 
-        savingFiles = new SavingFiles(computer, player, pack);
-        console = new Console(pack, player, computer, savingFiles);
+        files = new Files(computer, player, pack);
+        console = new Console(pack, player, computer, files);
     }
 
     public String gameOver(){
         if(player.getPlayerPack().isEmpty()){
             console.setGameIsOver(true);
-            return "Player is the winner";
+            return "\n\n🎉Player is the winner🎂";
         }else if(computer.getComputerPack().isEmpty()){
             console.setGameIsOver(true);
-            return "Computer is the winner";
+            return "\n\n✨Computer is the winner✨";
         }
         return "";
     }
 
     public void play() throws IOException {
         try{
-            System.out.println(pack.getCardPack());
-            player.getplayersCards();
+            files.manual(".idea/Manual.txt");
             do{
                 pack.initializeMelded();
-                System.out.println("Actual color: " + pack.getActualCardColor()+ "\nActual type: " + pack.getActualCardType());
+                System.out.println("\nRemaining in the pack: " + pack.cardPack.size() + " cards");
+                System.out.println("Computer has: " + computer.getComputerPack().size() + " cards");
+                player.getplayersCards();
+
+                System.out.println("\n\nActual color: " + pack.getActualCardColor()+ "\nActual type: " + pack.getActualCardType());
+
 
                 boolean skipTurn = pack.meldedIsA();
                 if (skipTurn) {
@@ -75,6 +79,7 @@ public class Game implements Serializable {
 
                 gameOver();
             }while(!console.isGameIsOver());
+            System.out.println("\n\n\n🎆Game over🎆");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -1,0 +1,7 @@
+Players manual: 
+To play a card type- 'play (card color) (card type)' or 'play (CARD COLOR) (CARD TYPE)'.
+To draw a card type- 'draw card'.
+To show pack type- 'show pack'.
+To save game type- 'save game'. WARNING! If you use this command the game will end.
+To load game type- 'load game'.
+To show this manual type- 'see manual'.

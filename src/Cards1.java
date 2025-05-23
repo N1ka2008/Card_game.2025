@@ -28,8 +28,7 @@ public class Cards1 {
                 CardType type = parseCardType(parts[0]);
                 CardColor color = parseCardColor(parts[1]);
                 if (type != null && color != null) {
-                    boolean isSpecial = (type == CardType.J || type == CardType.SEVEN || type == CardType.K || type == CardType.A);
-                    Card card = new Card(type, color, isSpecial);
+                    Card card = new Card(type, color);
                     cards.add(card);
                 }
             }

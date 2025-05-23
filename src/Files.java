@@ -1,13 +1,13 @@
 import java.io.*;
 import java.util.ArrayList;
 
-public class SavingFiles {
+public class Files {
 
     private Computer computer;
     private Player player;
     private Pack pack;
 
-    public SavingFiles(Computer computer, Player player, Pack pack) {
+    public Files(Computer computer, Player player, Pack pack) {
         this.computer = computer;
         this.player = player;
         this.pack = pack;
@@ -59,4 +59,19 @@ public class SavingFiles {
             System.err.println("Error casting loaded objects: " + e.getMessage());
         }
     }
+
+    public void manual(String text) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(text))) {
+            String radek;
+            while ((radek = reader.readLine()) != null) {
+                System.out.println(radek);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
