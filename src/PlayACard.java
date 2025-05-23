@@ -36,7 +36,7 @@ public class PlayACard extends Command{
                 return false;
             }
 
-            player.playerPlayCard(color, type);
+            System.out.println(player.playerPlayCard(color, type));
             player.setTurn(false);
             computer.setTurn(true);
             return true;

@@ -25,7 +25,7 @@ public class Player extends Pack implements Serializable {
         Card card = cardPack.get(0);
         playerPack.add(card);
         cardPack.remove(card);
-        return "player drawed a card";
+        return "player drew a card";
     }
 
     public String playerPlayCard(String color, String type){
@@ -81,7 +81,7 @@ public class Player extends Pack implements Serializable {
             setActualCardColor(card.getColor());
             return "player changed color";
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid color! Using HEARTS as default.");
+            System.out.println("Invalid color! Changing to HEARTS");
             setActualCardColor(CardColor.HEARTS);
             return "player changed color to HEARTS";
         }
@@ -95,9 +95,10 @@ public class Player extends Pack implements Serializable {
                 case "yes":
                     playerPack.add(card);
                     cardPack.remove(card);
+                    System.out.println("one card drew");
                     break;
                     case "no":
-                        System.out.println("No cards added");
+                        System.out.println("No cards drew");
                         break;
                         default:
                             System.out.println("Invalid choice");

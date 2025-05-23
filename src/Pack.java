@@ -87,37 +87,51 @@ public class Pack implements Serializable {
     }
 
     public boolean meldedIsSeven(){
-        if(melded.getType().equals(CardType.SEVEN)) {
-            if (player.isTurn()) {
-                Card[] firstTwoCardsPlayer = new Card[2];
-                Iterator<Card> iterator2 = cardPack.iterator();
+        if(melded == null || !melded.getType().equals(CardType.SEVEN)) {
+            return false;
+        }
 
-                for (int i = 0; i < 2 && iterator2.hasNext(); i++) {
-                    firstTwoCardsPlayer[i] = iterator2.next();
-                }
-                for (int i = 0; i < 2; i++) {
+        if(player == null || computer == null) {
+            System.out.println("Player or computer not initialized");
+            return false;
+        }
+
+        System.out.println("SEVEN played! Drawing 2 cards for current player.");
+
+        if (player.isTurn()) {
+            Card[] firstTwoCardsPlayer = new Card[2];
+            Iterator<Card> iterator2 = cardPack.iterator();
+
+            for (int i = 0; i < 2 && iterator2.hasNext(); i++) {
+                firstTwoCardsPlayer[i] = iterator2.next();
+            }
+            for (int i = 0; i < 2; i++) {
+                if(firstTwoCardsPlayer[i] != null) {
                     player.playerPack.add(firstTwoCardsPlayer[i]);
                     cardPack.remove(firstTwoCardsPlayer[i]);
                 }
-                player.setTurn(false);
-                computer.setTurn(true);
-            } else {
-                Card[] firstTwoCardsComputer = new Card[2];
-                Iterator<Card> iterator = cardPack.iterator();
+            }
+            player.setTurn(false);
+            computer.setTurn(true);
+            System.out.println("Player drew 2 cards");
+        } else {
+            Card[] firstTwoCardsComputer = new Card[2];
+            Iterator<Card> iterator = cardPack.iterator();
 
-                for (int i = 0; i < 2 && iterator.hasNext(); i++) {
-                    firstTwoCardsComputer[i] = iterator.next();
-                }
-                for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 2 && iterator.hasNext(); i++) {
+                firstTwoCardsComputer[i] = iterator.next();
+            }
+            for (int i = 0; i < 2; i++) {
+                if(firstTwoCardsComputer[i] != null) {
                     computer.computerPack.add(firstTwoCardsComputer[i]);
                     cardPack.remove(firstTwoCardsComputer[i]);
                 }
-                computer.setTurn(false);
-                player.setTurn(true);
             }
-            return true;
+            computer.setTurn(false);
+            player.setTurn(true);
+            System.out.println("Computer drew 2 cards");
         }
-        return false;
+        return true;
     }
 
     public boolean meldedIsA(){

@@ -27,21 +27,7 @@ public class Computer extends Pack implements Serializable {
     public void playCard() {
         if(!meldedIsSeven()) {
             System.out.println("\nComputers turn");
-
             boolean hasPlayedCard = false;
-
-            for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
-                Card card = iterator.next();
-                if (card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
-                    System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
-                    iterator.remove();
-                    cardPack.add(card);
-                    DiamondsK();
-                    hasPlayedCard = true;
-                    break;
-                }
-            }
-
             if (!hasPlayedCard) {
                 for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
                     Card card = iterator.next();
@@ -49,12 +35,15 @@ public class Computer extends Pack implements Serializable {
                         System.out.println("Computer played: [" + card.getColor() + " | " + card.getType() + "]");
                         iterator.remove();
                         cardPack.add(card);
+                        if (card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
+                            DiamondsK();
+                        }
+
                         hasPlayedCard = true;
                         break;
                     }
                 }
             }
-
             if (!hasPlayedCard) {
                 for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
                     Card card = iterator.next();
@@ -69,9 +58,11 @@ public class Computer extends Pack implements Serializable {
                     }
                 }
             }
+
             if (!hasPlayedCard) {
                 drawCard();
             }
+
             setTurn(false);
             player.setTurn(true);
         }
@@ -81,7 +72,7 @@ public class Computer extends Pack implements Serializable {
         Card card = cardPack.get(0);
         computerPack.add(card);
        cardPack.remove(card);
-        System.out.println("computer drawed a card");
+        System.out.println("computer drew a card");
     }
 
     public void changeColor() {
@@ -135,7 +126,7 @@ public class Computer extends Pack implements Serializable {
             if (number == 1) {
                 computerPack.add(card);
                 cardPack.remove(card);
-                System.out.println("Computer drawed one extra card");
+                System.out.println("Computer drew one extra card");
             }
     }
 
