@@ -47,22 +47,17 @@ public class Player extends Pack implements Serializable {
                 playerChangeColor();
                 playerPack.remove(cardToPlay);
                 cardPack.add(cardToPlay);
-                //setActualCardType(cardToPlay.getType());
                 return "Player played a J card and changed color";
             }
             else if (cardToPlay.getType().equals(CardType.K) && cardToPlay.getColor().equals(CardColor.DIAMONDS)) {
                 playerPack.remove(cardToPlay);
                 cardPack.add(cardToPlay);
-                //setActualCardColor(cardToPlay.getColor());
-                //setActualCardType(cardToPlay.getType());
                 playerDiamondsK();
                 return "Player played a K of Diamonds";
             }
             else if (cardToPlay.getColor().equals(getActualCardColor()) || cardToPlay.getType().equals(getActualCardType())) {
                 playerPack.remove(cardToPlay);
                 cardPack.add(cardToPlay);
-                //setActualCardColor(cardToPlay.getColor());
-                //setActualCardType(cardToPlay.getType());
                 return "Player played a card: [" + cardToPlay.getColor() + " | " + cardToPlay.getType() + "]";
             } else {
                 return "You cannot play this card";
@@ -78,12 +73,18 @@ public class Player extends Pack implements Serializable {
         sc = new Scanner(System.in);
     }
 
-    public String playerChangeColor(){
-        Card card = new Card();
-        System.out.println("Type a color you want to change to: ");
-        card.setColor(CardColor.valueOf(sc.next().toUpperCase()));
-        setActualCardColor(card.getColor());
-        return "player changed color";
+    public String playerChangeColor() {
+        try {
+            Card card = new Card();
+            System.out.println("Type a color you want to change to: ");
+            card.setColor(CardColor.valueOf(sc.next().toUpperCase()));
+            setActualCardColor(card.getColor());
+            return "player changed color";
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid color! Using HEARTS as default.");
+            setActualCardColor(CardColor.HEARTS);
+            return "player changed color to HEARTS";
+        }
     }
 
     public void playerDiamondsK(){

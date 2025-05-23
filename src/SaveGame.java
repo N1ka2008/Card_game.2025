@@ -8,7 +8,7 @@ public class SaveGame extends Command{
 
     public boolean execute(String argument) {
         if(argument.equalsIgnoreCase("game")){
-            savingFiles.save("file");
+            savingFiles.save("file.ser");
             System.out.println("Game saved");
         }
         return true;

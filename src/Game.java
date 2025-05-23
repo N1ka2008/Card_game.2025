@@ -12,22 +12,36 @@ public class Game implements Serializable {
     public Game() {
         pack = new Pack();
         pack.addCardsFromFile(".idea/Cards.txt");
-        pack.initializeMelded();
 
-        player = new Player(pack.cardPack, pack.getMelded());
-        computer = new Computer(pack.cardPack, pack.getMelded(), player);
-
-        savingFiles = new SavingFiles(computer, player, pack);
+        player = new Player();
+        computer = new Computer();
 
         pack.setPlayer(player);
         pack.setComputer(computer);
 
+        pack.initializeMelded();
+
+        player.cardPack = pack.cardPack;
+        player.setActualCardColor(pack.getActualCardColor());
+        player.setActualCardType(pack.getActualCardType());
+
+        computer.cardPack = pack.cardPack;
+        computer.setActualCardColor(pack.getActualCardColor());
+        computer.setActualCardType(pack.getActualCardType());
+        computer.player = player;
+
+        savingFiles = new SavingFiles(computer, player, pack);
         console = new Console(pack, player, computer, savingFiles);
 
         player.setTurn(true);
         computer.setTurn(false);
 
         pack.startCards();
+
+        if (pack.getActualCardType() == CardType.SEVEN) {
+            pack.meldedIsSeven();
+
+        }
     }
 
     public String gameOver(){
