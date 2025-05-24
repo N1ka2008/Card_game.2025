@@ -11,7 +11,7 @@ public class DrawACard extends Command{
 
     @Override
     public boolean execute(String argument) {
-        if(argument.equalsIgnoreCase("card")){
+        if(argument.toLowerCase().equalsIgnoreCase("card")){
             player.playerDrawCard();
             player.setTurn(false);
             computer.setTurn(true);

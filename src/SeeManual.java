@@ -8,7 +8,9 @@ public class SeeManual extends Command{
 
     @Override
     public boolean execute(String argument) {
-        manual.manual(".idea/manual.txt");
+        if(argument.toLowerCase().equalsIgnoreCase("manual")) {
+            manual.manual(".idea/manual.txt");
+        }
         return true;
     }
 

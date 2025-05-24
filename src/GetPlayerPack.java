@@ -7,7 +7,7 @@ public class GetPlayerPack extends Command{
     }
 
     public boolean execute(String argument) {
-        if(argument.equalsIgnoreCase("pack")) {
+        if(argument.toLowerCase().equalsIgnoreCase("pack")) {
             player.getplayersCards();
         }
         return true;

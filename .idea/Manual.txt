@@ -1,7 +1,11 @@
 Players manual: 
-To play a card type- 'play (card color) (card type)' or 'play (CARD COLOR) (CARD TYPE)'.
+To play a card type- 'play (card color) (card type)'/'play (CARD COLOR) (CARD TYPE)'.
 To draw a card type- 'draw card'.
 To show pack type- 'show pack'.
 To save game type- 'save game'. WARNING! If you use this command the game will end.
 To load game type- 'load game'.
+To exit game type- 'exit'.
 To show this manual type- 'see manual'.
+If you want to play 7, 8, 9, 10 you have to type 'seven'/'SEVEN', 'eight'/'EIGHT', 'nine'/'NINE', 'ten'/'TEN'
+Avalible card types- seven(7), eight(8), nine(9), ten(10), J(Jack), Q(Queen), K(King), A(Ace).
+Avalible card colors- hearts(♥), diamonds(♦), clubs(♣), spades(♠).

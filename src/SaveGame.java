@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public class SaveGame extends Command{
 
     private Files savingFiles;
@@ -9,7 +11,7 @@ public class SaveGame extends Command{
     }
 
     public boolean execute(String argument) {
-        if(argument.equalsIgnoreCase("game")){
+        if(argument.toLowerCase().equalsIgnoreCase("game")){
             savingFiles.save("file.ser");
             console.setGameIsOver(true);
             System.out.println("Game saved");
