@@ -9,7 +9,6 @@ public class LoadGame extends Command{
     public boolean execute(String argument) {
         if(argument.toLowerCase().equalsIgnoreCase("game")){
             savingFiles.load("file.ser");
-            System.out.println("Game loaded");
         }
         return true;
     }

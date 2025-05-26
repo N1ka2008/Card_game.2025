@@ -1,4 +1,4 @@
-import java.util.Locale;
+
 
 public class SaveGame extends Command{
 
@@ -14,7 +14,6 @@ public class SaveGame extends Command{
         if(argument.toLowerCase().equalsIgnoreCase("game")){
             savingFiles.save("file.ser");
             console.setGameIsOver(true);
-            System.out.println("Game saved");
         }
         return true;
     }
