@@ -2,8 +2,6 @@ public abstract class Command {
 
     protected String command;
 
-
-
     public boolean exit() {
         return false;
     }

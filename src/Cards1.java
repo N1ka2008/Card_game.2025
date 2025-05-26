@@ -7,8 +7,12 @@ public class Cards1 {
 
     private static final Random random = new Random();
 
+    /**
+     * This method reads all cards from Cards.txt, then creates a list to store the cards and processes lines.
+     * It is also important to shuffle the cards.
+     * Collections.shuffle(cards) is not mine, source: Chat gpt
+     */
     public static List<Card> readCardsFromFile(String filePath) throws IOException {
-        // Read all cards into a list first
         List<String> cardLines = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
@@ -18,10 +22,8 @@ public class Cards1 {
         }
         reader.close();
 
-        // Create list to store cards
         List<Card> cards = new ArrayList<>();
 
-        // Process lines
         for (String cardLine : cardLines) {
             String[] parts = cardLine.split(";");
             if (parts.length == 2) {
@@ -34,7 +36,6 @@ public class Cards1 {
             }
         }
 
-        // Shuffle the cards
         Collections.shuffle(cards);
 
         return cards;

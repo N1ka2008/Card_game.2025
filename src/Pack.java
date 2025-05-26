@@ -12,6 +12,7 @@ public class Pack implements Serializable {
     private Computer computer;
     private CardColor actualCardColor;
     private CardType actualCardType;
+    private boolean skipTurn = false;
 
     public Pack() {
         this.cardPack = new ArrayList<>();
@@ -134,9 +135,14 @@ public class Pack implements Serializable {
     }
 
     public boolean meldedIsA(){
+        if(skipTurn) {
+            return false;
+        }
+
         boolean meldedIsA;
         if(getActualCardType().equals(CardType.A)){
             meldedIsA = true;
+            skipTurn = true;
             if(player.isTurn()) {
                 player.setTurn(false);
                 computer.setTurn(true);
@@ -144,6 +150,7 @@ public class Pack implements Serializable {
                 computer.setTurn(false);
                 player.setTurn(true);
             }
+            System.out.println("An Ace was played! Turn is skipped.");
         }else{
             meldedIsA = false;
         }
@@ -196,5 +203,13 @@ public class Pack implements Serializable {
 
     public void setCardPack(ArrayList<Card> cardPack) {
         this.cardPack = cardPack;
+    }
+
+    public boolean isSkipTurn() {
+        return skipTurn;
+    }
+
+    public void setSkipTurn(boolean skipTurn) {
+        this.skipTurn = skipTurn;
     }
 }

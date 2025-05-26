@@ -29,13 +29,12 @@ public class Player extends Pack implements Serializable {
     }
 
     public String playerPlayCard(String color, String type){
-        if(!meldedIsSeven()) {
             CardColor cardColor = CardColor.valueOf(color);
             CardType cardType = CardType.valueOf(type);
 
             Card cardToPlay = null;
             for (Card card : playerPack) {
-                if (card.getColor().equals(cardColor) && card.getType().equals(cardType)) {
+                if (card.getColor().equals(cardColor) || card.getType().equals(cardType)) {
                     cardToPlay = card;
                     break;
                 }
@@ -49,7 +48,7 @@ public class Player extends Pack implements Serializable {
                 cardPack.add(cardToPlay);
                 return "Player played a J card and changed color";
             }
-            else if (cardToPlay.getType().equals(CardType.K) && cardToPlay.getColor().equals(CardColor.DIAMONDS)) {
+            else if (cardToPlay.getType().equals(CardType.K) || cardToPlay.getColor().equals(CardColor.DIAMONDS)) {
                 playerPack.remove(cardToPlay);
                 cardPack.add(cardToPlay);
                 playerDiamondsK();
@@ -62,8 +61,6 @@ public class Player extends Pack implements Serializable {
             } else {
                 return "You cannot play this card";
             }
-        }
-        return null;
     }
 
     transient Scanner sc = new Scanner(System.in);

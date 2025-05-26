@@ -24,49 +24,52 @@ public class Computer extends Pack implements Serializable {
 
     public ArrayList<Card> computerPack = new ArrayList<>();
 
-    //zaklad muj, s Iterator<Card> pomohl chat
+    /**
+     * This method controls which cards can computer play and then plays them.
+     * It also applies methods DiamondsK(), changeColor() and drawCard()
+     * Base of the method is mine, Iterator<Card>, iterator.hasNext() and iterator.next() is not. Source: Chat gpt
+     */
     public void playCard() {
-        if(!meldedIsSeven()) {
-            System.out.println("\nComputers turn");
-            boolean hasPlayedCard = false;
-            if (!hasPlayedCard) {
-                for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
-                    Card card = iterator.next();
-                    if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
-                        System.out.println("Computer played: " + card.toString());
-                        iterator.remove();
-                        cardPack.add(card);
-                        if (card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
-                            DiamondsK();
-                        }
+        System.out.println("\nComputer's turn");
+        boolean hasPlayedCard = false;
 
-                        hasPlayedCard = true;
-                        break;
-                    }
+        for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
+            Card card = iterator.next();
+            if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
+                System.out.println("Computer played: " + card.toString());
+                iterator.remove();
+                cardPack.add(card);
+
+                if (card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
+                    DiamondsK();
                 }
-            }
-            if (!hasPlayedCard) {
-                for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
-                    Card card = iterator.next();
-                    if (card.getType().equals(CardType.J)) {
-                        System.out.println("Computer played: " + card.toString());
-                        iterator.remove();
-                        cardPack.add(card);
-                        changeColor();
-                        System.out.println("Computer changed color to: " + getActualCardColor());
-                        hasPlayedCard = true;
-                        break;
-                    }
-                }
-            }
 
-            if (!hasPlayedCard) {
-                drawCard();
+                hasPlayedCard = true;
+                break;
             }
-
-            setTurn(false);
-            player.setTurn(true);
         }
+
+        if (!hasPlayedCard) {
+            for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
+                Card card = iterator.next();
+                if (card.getType().equals(CardType.J)) {
+                    System.out.println("Computer played: " + card.toString());
+                    iterator.remove();
+                    cardPack.add(card);
+                    changeColor();
+                    System.out.println("Computer changed color to: " + getActualCardColor());
+                    hasPlayedCard = true;
+                    break;
+                }
+            }
+        }
+
+        if (!hasPlayedCard) {
+            drawCard();
+        }
+
+        setTurn(false);
+        player.setTurn(true);
     }
 
     public void drawCard() {

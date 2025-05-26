@@ -37,12 +37,12 @@ public class Console {
         System.out.println(">> ");
         String input = sc.nextLine();
         String[] parts = input.split(" ", 2);
-        String command = parts[0];
-        String argument = (parts.length > 1) ? parts[1] : "";
+        String command = parts[0].toLowerCase();
+        String argument = (parts.length > 1) ? parts[1].toUpperCase() : "";
         
         Command cmd = map.get(command);
         if (cmd != null) {
-            cmd.execute(argument.toUpperCase());
+            cmd.execute(argument);
             if (cmd instanceof Exit) {
                 exit = true;
             }

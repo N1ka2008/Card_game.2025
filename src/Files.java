@@ -34,29 +34,59 @@ public class Files {
         }
     }
 
-    public void load(String fileName) {
+    /**
+     * This method copies data from objects to current objects
+     * setters are not mine, source: Claude ai
+     */
+    public boolean load(String fileName) {
         try {
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
-                ArrayList<Object> gameState = (ArrayList<Object>) ois.readObject();
+            try {
+                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+                    ArrayList<Object> gameState = (ArrayList<Object>) ois.readObject();
 
-                this.computer = (Computer) gameState.get(0);
-                this.player = (Player) gameState.get(1);
-                this.pack = (Pack) gameState.get(2);
+                    Computer loadedComputer = (Computer) gameState.get(0);
+                    Player loadedPlayer = (Player) gameState.get(1);
+                    Pack loadedPack = (Pack) gameState.get(2);
 
-                pack.setPlayer(player);
-                pack.setComputer(computer);
-                computer.player = player;
+                    this.computer.computerPack = loadedComputer.computerPack;
+                    this.computer.cardPack = loadedComputer.cardPack;
+                    this.computer.setTurn(loadedComputer.isTurn());
+                    this.computer.setActualCardColor(loadedComputer.getActualCardColor());
+                    this.computer.setActualCardType(loadedComputer.getActualCardType());
 
-                System.out.println("Game loaded successfully!");
+                    this.player.playerPack = loadedPlayer.playerPack;
+                    this.player.cardPack = loadedPlayer.cardPack;
+                    this.player.setTurn(loadedPlayer.isTurn());
+                    this.player.setActualCardColor(loadedPlayer.getActualCardColor());
+                    this.player.setActualCardType(loadedPlayer.getActualCardType());
+
+                    this.pack.cardPack = loadedPack.cardPack;
+                    this.pack.setMelded(loadedPack.getMelded());
+                    this.pack.setActualCardColor(loadedPack.getActualCardColor());
+                    this.pack.setActualCardType(loadedPack.getActualCardType());
+
+                    this.pack.setPlayer(this.player);
+                    this.pack.setComputer(this.computer);
+                    this.computer.player = this.player;
+
+                    System.out.println("Game loaded successfully!");
+                    return true;
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("Save file not found: " + e.getMessage());
+                return false;
+            } catch (IOException e) {
+                System.err.println("Error loading game: " + e.getMessage());
+                return false;
+            } catch (ClassNotFoundException e) {
+                System.err.println("Class not found when loading game: " + e.getMessage());
+                return false;
+            } catch (ClassCastException e) {
+                System.err.println("Error casting loaded objects: " + e.getMessage());
+                return false;
             }
-        } catch (FileNotFoundException e) {
-            System.err.println("Save file not found: " + e.getMessage());
-        } catch (IOException e) {
-            System.err.println("Error loading game: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            System.err.println("Class not found when loading game: " + e.getMessage());
-        } catch (ClassCastException e) {
-            System.err.println("Error casting loaded objects: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -72,6 +102,4 @@ public class Files {
             throw new RuntimeException(e);
         }
     }
-
-
 }

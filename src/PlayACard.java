@@ -12,7 +12,7 @@ public class PlayACard extends Command{
     public boolean execute(String argument) {
         String[] parts = argument.split(" ");
         if (parts.length != 2) {
-            System.out.println("Invalid format! Use: play COLOR TYPE");
+            System.out.println("Invalid format! Try: play COLOR TYPE");
             return false;
         }
 

@@ -28,7 +28,7 @@ public class Game implements Serializable {
 
         pack.startCards();
 
-        pack.initializeMelded();
+        //pack.initializeMelded();
 
         player.setActualCardColor(pack.getActualCardColor());
         player.setActualCardType(pack.getActualCardType());
@@ -59,17 +59,15 @@ public class Game implements Serializable {
             files.manual(".idea/Manual.txt");
             do{
                 pack.initializeMelded();
+
                 System.out.println("\nRemaining in the pack: " + pack.cardPack.size() + " cards");
                 System.out.println("Computer has: " + computer.getComputerPack().size() + " cards");
                 player.getplayersCards();
 
                 System.out.println("\n\nActual color: " + pack.getActualCardColor()+ "\nActual type: " + pack.getActualCardType());
 
-
-                boolean skipTurn = pack.meldedIsA();
-                if (skipTurn) {
-                    System.out.println("An Ace was played! Turn is skipped.");
-                }
+                pack.meldedIsA();
+                pack.meldedIsSeven();
                 
                 if(computer.isTurn()){
                     computer.playCard();
