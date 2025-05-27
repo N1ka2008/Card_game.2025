@@ -44,6 +44,8 @@ public class Computer extends Pack implements Serializable {
                 if (card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
                     DiamondsK();
                 }
+                setActualCardType(card.getType());
+                setActualCardColor(card.getColor());
 
                 hasPlayedCard = true;
                 break;
@@ -106,13 +108,13 @@ public class Computer extends Pack implements Serializable {
 
             CardColor newColor = null;
             if(max == heartsCount){
-                setActualCardColor(CardColor.HEARTS);
+                newColor = CardColor.HEARTS;
             } else if (max == diamondsCount){
-                setActualCardColor(CardColor.DIAMONDS);
+                newColor = CardColor.DIAMONDS;
             }else if (max == clubsCount){
-                setActualCardColor(CardColor.CLUBS);
+                newColor = CardColor.CLUBS;
             }else if (max == spadesCount){
-                setActualCardColor(CardColor.SPADES);
+                newColor = CardColor.SPADES;
             }
 
             setActualCardColor(newColor);

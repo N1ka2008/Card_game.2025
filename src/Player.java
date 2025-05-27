@@ -8,9 +8,11 @@ import java.util.Scanner;
 public class Player extends Pack implements Serializable {
 
     private boolean turn;
+    Computer computer;
 
-    public Player(ArrayList<Card> cardPack, Card melded){
+    public Player(ArrayList<Card> cardPack, Card melded, Computer computer) {
         super(cardPack, melded);
+        this.computer = computer;
     }
 
     public Player(){
@@ -53,19 +55,26 @@ public class Player extends Pack implements Serializable {
             playerPack.remove(cardToPlay);
             cardPack.add(cardToPlay);
             playerChangeColor();
-            return "Player played a J card and changed color";
-        }
 
-        if (cardType == CardType.K && cardColor == CardColor.DIAMONDS) {
-            playerPack.remove(cardToPlay);
-            cardPack.add(cardToPlay);
-            playerDiamondsK();
-            return "Player played Diamonds K";
+            return "Player played a J card and changed color to: " + getActualCardColor();
         }
 
         if (cardColor == getActualCardColor() || cardType == getActualCardType()) {
             playerPack.remove(cardToPlay);
             cardPack.add(cardToPlay);
+
+            setActualCardColor(cardColor);
+            setActualCardType(cardType);
+
+            if (computer != null) {
+                setActualCardColor(cardColor);
+                setActualCardType(cardType);
+            }
+
+            if (cardType == CardType.K && cardColor == CardColor.DIAMONDS) {
+                playerDiamondsK();
+            }
+
             return "Player played a card: " + cardToPlay;
         }
 

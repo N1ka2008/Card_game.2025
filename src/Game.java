@@ -22,7 +22,7 @@ public class Game implements Serializable {
         player.cardPack = pack.cardPack;
         computer.cardPack = pack.cardPack;
         computer.player = player;
-        player.setComputer(computer);
+        player.computer = computer;
 
         player.setTurn(true);
         computer.setTurn(false);
@@ -63,16 +63,23 @@ public class Game implements Serializable {
                 System.out.println("Computer has: " + computer.getComputerPack().size() + " cards");
                 player.getplayersCards();
 
-                System.out.println("\n\nActual color: " + pack.getActualCardColor()+ "\nActual type: " + pack.getActualCardType());
-
                 pack.meldedIsA();
                 pack.meldedIsSeven();
-                
-                if(computer.isTurn()){
+
+                System.out.println("\n\nActual color: " + pack.getActualCardColor() + "\nActual type: " + pack.getActualCardType());
+
+                if (computer.isTurn()) {
                     computer.playCard();
-                }else {
+                    pack.setActualCardColor(computer.getActualCardColor());
+                } else {
                     console.start();
+                    pack.setActualCardColor(player.getActualCardColor());
                 }
+
+                player.setActualCardColor(pack.getActualCardColor());
+                player.setActualCardType(pack.getActualCardType());
+                computer.setActualCardColor(pack.getActualCardColor());
+                computer.setActualCardType(pack.getActualCardType());
 
                 System.out.println(gameOver());
             }while(!console.isGameIsOver());
