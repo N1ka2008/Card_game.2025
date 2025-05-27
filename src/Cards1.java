@@ -11,6 +11,7 @@ public class Cards1 {
      * This method reads all cards from Cards.txt, then creates a list to store the cards and processes lines.
      * It is also important to shuffle the cards.
      * Collections.shuffle(cards) is not mine, source: Chat gpt
+     * Rest of the method mine
      */
     public static List<Card> readCardsFromFile(String filePath) throws IOException {
         List<String> cardLines = new ArrayList<>();

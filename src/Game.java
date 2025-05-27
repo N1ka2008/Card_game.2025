@@ -22,13 +22,12 @@ public class Game implements Serializable {
         player.cardPack = pack.cardPack;
         computer.cardPack = pack.cardPack;
         computer.player = player;
+        player.setComputer(computer);
 
         player.setTurn(true);
         computer.setTurn(false);
 
         pack.startCards();
-
-        //pack.initializeMelded();
 
         player.setActualCardColor(pack.getActualCardColor());
         player.setActualCardType(pack.getActualCardType());
@@ -75,7 +74,7 @@ public class Game implements Serializable {
                     console.start();
                 }
 
-                gameOver();
+                System.out.println(gameOver());
             }while(!console.isGameIsOver());
             System.out.println("\n\n\n🎆Game over🎆");
         } catch (Exception e) {

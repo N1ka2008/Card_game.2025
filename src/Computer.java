@@ -27,7 +27,8 @@ public class Computer extends Pack implements Serializable {
     /**
      * This method controls which cards can computer play and then plays them.
      * It also applies methods DiamondsK(), changeColor() and drawCard()
-     * Base of the method is mine, Iterator<Card>, iterator.hasNext() and iterator.next() is not. Source: Chat gpt
+     * Iterator<Card>, iterator.hasNext() and iterator.next() is not mine. Source: Chat gpt
+     * Rest of the method is mine
      */
     public void playCard() {
         System.out.println("\nComputer's turn");
@@ -103,6 +104,7 @@ public class Computer extends Pack implements Serializable {
 
             int max = Math.max(Math.max(heartsCount, diamondsCount), Math.max(clubsCount, spadesCount));
 
+            CardColor newColor = null;
             if(max == heartsCount){
                 setActualCardColor(CardColor.HEARTS);
             } else if (max == diamondsCount){
@@ -111,6 +113,11 @@ public class Computer extends Pack implements Serializable {
                 setActualCardColor(CardColor.CLUBS);
             }else if (max == spadesCount){
                 setActualCardColor(CardColor.SPADES);
+            }
+
+            setActualCardColor(newColor);
+            if (player != null) {
+                player.setActualCardColor(newColor);
             }
 
         }

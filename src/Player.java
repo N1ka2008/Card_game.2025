@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Player extends Pack implements Serializable {
@@ -28,39 +29,47 @@ public class Player extends Pack implements Serializable {
         return "player drew a card" + card.toString();
     }
 
+    /**
+     * This methodcontrols which cards can plazer play.
+     * It also applies methods playerDiamondsK(), playerChangeColor() and playerDrawCard()
+     * Optional<Card> optionalCard = playerPack.stream(), .filter() and .findFirst() is not mine. Source: Chat gpt
+     * Rest of the method is mine
+     */
     public String playerPlayCard(String color, String type){
-            CardColor cardColor = CardColor.valueOf(color);
-            CardType cardType = CardType.valueOf(type);
+        CardColor cardColor = CardColor.valueOf(color);
+        CardType cardType = CardType.valueOf(type);
 
-            Card cardToPlay = null;
-            for (Card card : playerPack) {
-                if (card.getColor().equals(cardColor) || card.getType().equals(cardType)) {
-                    cardToPlay = card;
-                    break;
-                }
-            }
-            if (cardToPlay == null) {
-                return "You dont have this card";
-            }
-            if (cardToPlay.getType().equals(CardType.J)) {
-                playerChangeColor();
-                playerPack.remove(cardToPlay);
-                cardPack.add(cardToPlay);
-                return "Player played a J card and changed color";
-            }
-            else if (cardToPlay.getType().equals(CardType.K) || cardToPlay.getColor().equals(CardColor.DIAMONDS)) {
-                playerPack.remove(cardToPlay);
-                cardPack.add(cardToPlay);
-                playerDiamondsK();
-                return "Player played a K of Diamonds";
-            }
-            else if (cardToPlay.getColor().equals(getActualCardColor()) || cardToPlay.getType().equals(getActualCardType())) {
-                playerPack.remove(cardToPlay);
-                cardPack.add(cardToPlay);
-                return "Player played a card: " + cardToPlay.toString();
-            } else {
-                return "You cannot play this card";
-            }
+        Optional<Card> optionalCard = playerPack.stream()
+                .filter(card -> card.getColor().equals(cardColor) && card.getType().equals(cardType))
+                .findFirst();
+
+        if (optionalCard.isEmpty()) {
+            return "You don't have this card";
+        }
+
+        Card cardToPlay = optionalCard.get();
+
+        if (cardType == CardType.J) {
+            playerPack.remove(cardToPlay);
+            cardPack.add(cardToPlay);
+            playerChangeColor();
+            return "Player played a J card and changed color";
+        }
+
+        if (cardType == CardType.K && cardColor == CardColor.DIAMONDS) {
+            playerPack.remove(cardToPlay);
+            cardPack.add(cardToPlay);
+            playerDiamondsK();
+            return "Player played Diamonds K";
+        }
+
+        if (cardColor == getActualCardColor() || cardType == getActualCardType()) {
+            playerPack.remove(cardToPlay);
+            cardPack.add(cardToPlay);
+            return "Player played a card: " + cardToPlay;
+        }
+
+        return "You cannot play this card";
     }
 
     transient Scanner sc = new Scanner(System.in);
@@ -72,14 +81,20 @@ public class Player extends Pack implements Serializable {
 
     public String playerChangeColor() {
         try {
-            Card card = new Card();
             System.out.println("Type a color you want to change to: ");
-            card.setColor(CardColor.valueOf(sc.next().toUpperCase()));
-            setActualCardColor(card.getColor());
-            return "player changed color";
+            String colorInput = sc.next().toUpperCase();
+            CardColor newColor = CardColor.valueOf(colorInput);
+
+            setActualCardColor(newColor);
+
+            System.out.println("Color changed to: " + newColor);
+            return "player changed color to " + newColor;
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid color! Changing to HEARTS");
-            setActualCardColor(CardColor.HEARTS);
+            CardColor defaultColor = CardColor.HEARTS;
+
+            setActualCardColor(defaultColor);
+
             return "player changed color to HEARTS";
         }
     }

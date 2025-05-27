@@ -13,5 +13,5 @@ Avalible card colors- hearts(♥), diamonds(♦), clubs(♣), spades(♠).
 
 If (any card color) (SEVEN) is played, oponent has to draw 2 cards.
 If (any card color) (A) is played, oponent hast to skip turn.
-If (DIAMONDS) (K) is played, you can, but don't have to draw 1 card.
+If (DIAMONDS) (K) is played, you can, but don't have to draw 1 card. (yes/no)
 If (any card color) (J) is played, you can change the actual card color.

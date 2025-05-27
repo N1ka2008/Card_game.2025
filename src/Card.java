@@ -33,8 +33,6 @@ public class Card implements Serializable {
     @Override
     public String toString() {
         return
-                "[" + color +
-                " | " + type +
-                "]";
+                "[" + color + " | " + type + "]";
     }
 }
