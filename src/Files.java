@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Class for files
+ */
 public class Files {
 
     private Computer computer;
@@ -13,6 +16,9 @@ public class Files {
         this.pack = pack;
     }
 
+    /**
+     * Method saves the values to a file
+     */
     public void save(String fileName) {
         try {
             File file = new File(fileName);
@@ -35,8 +41,7 @@ public class Files {
     }
 
     /**
-     * This method copies data from objects to current objects
-     * setters are not mine, source: Claude ai
+     * Method copies data from saved file to current object
      */
     public boolean load(String fileName) {
         try {
@@ -90,6 +95,9 @@ public class Files {
         }
     }
 
+    /**
+     * Method loads manual from text file Manual.txt
+     */
     public void manual(String text) {
         try (BufferedReader reader = new BufferedReader(new FileReader(text))) {
             String radek;

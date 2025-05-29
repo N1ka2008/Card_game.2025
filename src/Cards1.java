@@ -3,6 +3,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Class for reading and loading cards from text file Cards.txt
+ */
 public class Cards1 {
 
     private static final Random random = new Random();
@@ -42,6 +45,9 @@ public class Cards1 {
         return cards;
     }
 
+    /**
+     * Method parses string to Enum value of CardType
+     */
     private static CardType parseCardType(String typeStr) {
         try {
             return CardType.valueOf(typeStr);
@@ -50,7 +56,9 @@ public class Cards1 {
             return null;
         }
     }
-    
+    /**
+     * Method parses string to Enum value of CardColor
+     */
     private static CardColor parseCardColor(String colorStr) {
         try {
             return CardColor.valueOf(colorStr);

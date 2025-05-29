@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.io.Serializable;
 
+/**
+ * Class for game logic
+ */
 public class Game implements Serializable {
     
     Computer computer;
@@ -9,6 +12,9 @@ public class Game implements Serializable {
     Console console;
     Files files;
 
+    /**
+     * This constructor initializes all objects important for the game
+     */
     public Game() {
         pack = new Pack();
         pack.addCardsFromFile(".idea/Cards.txt");
@@ -43,6 +49,10 @@ public class Game implements Serializable {
         console = new Console(pack, player, computer, files);
     }
 
+    /**
+     * Method controls whether Player or Computer have empty pack
+     * It sets gameIsOver to true
+     */
     public String gameOver(){
         if(player.getPlayerPack().isEmpty()){
             console.setGameIsOver(true);
@@ -54,6 +64,11 @@ public class Game implements Serializable {
         return "";
     }
 
+    /**
+     * Method contains game logic
+     * In each round it initializes melded and synchronizes actual color and type
+     * It controls who can play
+     */
     public void play() throws IOException {
         try{
             files.manual(".idea/Manual.txt");

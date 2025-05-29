@@ -3,6 +3,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
 
+/**
+ * Class for testing Player
+ */
 public class PlayerTest {
     private Player player;
     private Computer computer;
@@ -40,6 +43,9 @@ public class PlayerTest {
         player.setMelded(initialMelded);
     }
 
+    /**
+     * Method tests if playerDrawCard works correctly
+     */
     @Test
     public void testPlayerDrawCard() {
         int initialPackSize = player.cardPack.size();
@@ -52,7 +58,9 @@ public class PlayerTest {
         assertTrue(result.contains("player drew a card"));
     }
 
-
+    /**
+     * Method tests what happens if player plays invalid  card
+     */
     @Test
     public void testPlayerPlayInvalidCard() {
         Card invalidCard = new Card(CardType.EIGHT, CardColor.CLUBS);

@@ -1,4 +1,6 @@
-
+/**
+ * Class for command save game
+ */
 public class SaveGame extends Command{
 
     private Files savingFiles;
@@ -9,6 +11,9 @@ public class SaveGame extends Command{
         this.console = console;
     }
 
+    /**
+     * Method launches save(), if argument is "game"
+     */
     public boolean execute(String argument) {
         if(argument.toLowerCase().equalsIgnoreCase("game")){
             savingFiles.save("file.ser");

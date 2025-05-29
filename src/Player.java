@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * Method for player and its methods, extends Pack
+ */
 public class Player extends Pack implements Serializable {
 
     private boolean turn;
@@ -24,6 +27,9 @@ public class Player extends Pack implements Serializable {
 
     public ArrayList<Card> playerPack = new ArrayList<>();
 
+    /**
+     * Method allows player to draw a card
+     */
     public String playerDrawCard(){
         Card card = cardPack.get(0);
         playerPack.add(card);
@@ -32,7 +38,7 @@ public class Player extends Pack implements Serializable {
     }
 
     /**
-     * This methodcontrols which cards can plazer play.
+     * This method controls which cards can player play.
      * It also applies methods playerDiamondsK(), playerChangeColor() and playerDrawCard()
      * Optional<Card> optionalCard = playerPack.stream(), .filter() and .findFirst() is not mine. Source: Chat gpt
      * Rest of the method is mine
@@ -90,11 +96,15 @@ public class Player extends Pack implements Serializable {
         sc = new Scanner(System.in);
     }
 
+    /**
+     * Method gives player the opinion to change the actual color
+     * The actual color then sets to the value of players input
+     */
     public String playerChangeColor() {
         try {
             System.out.println("Type a color you want to change to: ");
-            String colorInput = sc.next().toUpperCase();
-            CardColor newColor = CardColor.valueOf(colorInput);
+            String input = sc.next().toUpperCase();
+            CardColor newColor = CardColor.valueOf(input);
 
             setActualCardColor(newColor);
 
@@ -110,6 +120,9 @@ public class Player extends Pack implements Serializable {
         }
     }
 
+    /**
+     * Method give player the opinion to draw one extra card
+     */
     public void playerDiamondsK(){
         Card card = cardPack.get(0);
         System.out.println("Do you want to draw one extra card?");
@@ -130,6 +143,9 @@ public class Player extends Pack implements Serializable {
 
     }
 
+    /**
+     * Method prints all cards player has in his pack
+     */
     public void getplayersCards(){
         System.out.println("\nPlayers cards: ");
         for(Card card : playerPack){

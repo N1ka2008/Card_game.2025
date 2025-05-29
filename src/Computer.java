@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+/**
+ * Class for computer and its methods, extends from Pack
+ */
 public class Computer extends Pack implements Serializable {
 
     private boolean turn;
@@ -78,6 +81,9 @@ public class Computer extends Pack implements Serializable {
         player.setTurn(true);
     }
 
+    /**
+     * This method allows Computer to draw a card
+     */
     public void drawCard() {
         Card card = cardPack.get(0);
         computerPack.add(card);
@@ -85,6 +91,10 @@ public class Computer extends Pack implements Serializable {
         System.out.println("computer drew a card");
     }
 
+    /**
+     * This method allows Computer to change the actual card color
+     * first it counts which color is the most and then changes the actual color to it
+     */
     public void changeColor() {
         int heartsCount = 0;
         int diamondsCount = 0;
@@ -135,6 +145,10 @@ public class Computer extends Pack implements Serializable {
         rd = new Random();
     }
 
+    /**
+     * Method for Diamonds K
+     * if Random is 1, Computer will draw one extra card
+     */
     public void DiamondsK(){
         int number;
         Card card = cardPack.get(0);

@@ -1,3 +1,6 @@
+/**
+ * Class for command play card
+ */
 public class PlayACard extends Command{
 
     private Player player;
@@ -8,6 +11,10 @@ public class PlayACard extends Command{
         this.computer = computer;
     }
 
+    /**
+     * Method splits argument into color and type. Controls if player has this card, if does it launches playerPlayCard
+     * It also changes turn
+     */
     @Override
     public boolean execute(String argument) {
         String[] parts = argument.split(" ");

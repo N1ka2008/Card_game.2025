@@ -1,3 +1,6 @@
+/**
+ * Enum for card type
+ */
 public enum CardType {
 
     J, Q, K, A, SEVEN(7),

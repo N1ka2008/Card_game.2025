@@ -1,5 +1,8 @@
 import java.io.Serializable;
 
+/**
+ * Class for individual cards
+ */
 public class Card implements Serializable {
 
     private CardType type;

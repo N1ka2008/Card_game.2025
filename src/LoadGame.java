@@ -1,3 +1,6 @@
+/**
+ * Class for command load game
+ */
 public class LoadGame extends Command{
 
     private Files savingFiles;
@@ -6,6 +9,9 @@ public class LoadGame extends Command{
         this.savingFiles = savingFiles;
     }
 
+    /**
+     * Method launches load(), if argument is "game"
+     */
     public boolean execute(String argument) {
         if(argument.toLowerCase().equalsIgnoreCase("game")){
             boolean success = savingFiles.load("file.ser");

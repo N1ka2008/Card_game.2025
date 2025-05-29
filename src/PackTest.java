@@ -3,6 +3,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
 
+/**
+ * Class for testing main pack
+ */
 public class PackTest {
 
     private Pack pack;
@@ -26,6 +29,9 @@ public class PackTest {
         pack.cardPack.add(new Card(CardType.TEN, CardColor.SPADES));
     }
 
+    /**
+     * Method tests initialization of melded
+     */
     @Test
     public void testInitializeMelded() {
         pack.initializeMelded();
@@ -35,6 +41,9 @@ public class PackTest {
         assertEquals(pack.getMelded().getType(), pack.getActualCardType());
     }
 
+    /**
+     * Method tests if meldedIsA works correctly
+     */
     @Test
     public void testMeldedIsA() {
         pack.setActualCardType(CardType.A);

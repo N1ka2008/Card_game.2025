@@ -2,6 +2,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * Console for commands
+ */
 public class Console {
 
     Scanner sc = new Scanner(System.in);
@@ -23,6 +26,9 @@ public class Console {
     }
 
 
+    /**
+     * Method inicializes the commands
+     */
     public void inicialization(){
         map.put("draw", new DrawACard(player, computer, pack));
         map.put("play", new PlayACard(player, computer));
@@ -33,6 +39,9 @@ public class Console {
         map.put("see", new SeeManual(files));
     }
 
+    /**
+     * Method executes the command which player types
+     */
     private void execute(){
         System.out.println(">> ");
         String input = sc.nextLine();
@@ -51,6 +60,10 @@ public class Console {
         }
     }
 
+    /**
+     * Method starts inicialization and execute methods
+     * It also controls gameIsOver
+     */
     public boolean start() throws IOException {
         inicialization();
         if (exit == false) {

@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
+/**
+ * Class for the main pack and its methods
+ */
 public class Pack implements Serializable {
 
     public ArrayList<Card> cardPack = new ArrayList<>();
@@ -28,6 +31,9 @@ public class Pack implements Serializable {
         }
     }
 
+    /**
+     * Method initializes melded card and sets the actual color and type
+     */
     public void initializeMelded() {
         if (!cardPack.isEmpty()) {
             melded = cardPack.get(cardPack.size() - 1);
@@ -41,6 +47,9 @@ public class Pack implements Serializable {
         this.player = player;
     }
 
+    /**
+     * Method adds card to the main pack
+     */
     public void add(Card card) {
         if(!cardPack.contains(card)) {
             if (cardPack.size() < 32) {
@@ -52,6 +61,9 @@ public class Pack implements Serializable {
         System.out.println("something went wrong");
     }
 
+    /**
+     * Method adds all cards from the file Cards.txt to the main pack
+     */
     public boolean addCardsFromFile(String name) {
         try {
             ArrayList<Card> cards = (ArrayList<Card>) Cards1.readCardsFromFile(name);
@@ -67,6 +79,9 @@ public class Pack implements Serializable {
         }
     }
 
+    /**
+     * Method gives Player and Computer 4 start cards
+     */
     public void startCards(){
         Card[] firstEightCards = new Card[8];
         Iterator<Card> iterator = cardPack.iterator();
@@ -86,6 +101,9 @@ public class Pack implements Serializable {
         }
     }
 
+    /**
+     * Method gives Player or Computer 2 cards, if melded card is seven
+     */
     public boolean meldedIsSeven(){
         if(melded == null || !melded.getType().equals(CardType.SEVEN) || isSpecialEfect()) {
             return false;
@@ -135,6 +153,9 @@ public class Pack implements Serializable {
         return true;
     }
 
+    /**
+     * Method wont let Player or Computer play, if melded card is ace
+     */
     public boolean meldedIsA(){
         if(skipTurn) {
             return false;

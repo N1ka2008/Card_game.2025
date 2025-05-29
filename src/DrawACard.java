@@ -1,3 +1,6 @@
+/**
+ * Class for draw card command
+ */
 public class DrawACard extends Command{
 
     private Pack pack;
@@ -10,6 +13,9 @@ public class DrawACard extends Command{
         this.pack = pack;
     }
 
+    /**
+     * Method launches playerDrawCard method, if argument is "card"
+     */
     @Override
     public boolean execute(String argument) {
         if(argument.toLowerCase().equalsIgnoreCase("card")){

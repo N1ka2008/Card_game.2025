@@ -1,3 +1,6 @@
+/**
+ * Class for command see manual
+ */
 public class SeeManual extends Command{
 
     private Files manual;
@@ -6,6 +9,9 @@ public class SeeManual extends Command{
         this.manual = manual;
     }
 
+    /**
+     * Method launches manula(), if argument is "manual"
+     */
     @Override
     public boolean execute(String argument) {
         if(argument.toLowerCase().equalsIgnoreCase("manual")) {

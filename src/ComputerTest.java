@@ -3,6 +3,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
 
+/**
+ * Class for testinf Computer
+ */
 public class ComputerTest {
 
     private Player player;
@@ -40,6 +43,10 @@ public class ComputerTest {
         Card initialMelded = new Card(CardType.A, CardColor.HEARTS);
         player.setMelded(initialMelded);
     }
+
+    /**
+     * Method tests if Computer can draw a card
+     */
     @Test
     public void testDrawCard() {
         int initialComputerPackSize = computer.computerPack.size();

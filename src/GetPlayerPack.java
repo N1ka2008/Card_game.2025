@@ -1,3 +1,6 @@
+/**
+ * Class for command show pack
+ */
 public class GetPlayerPack extends Command{
 
     private Player player;
@@ -6,6 +9,9 @@ public class GetPlayerPack extends Command{
         this.player = player;
     }
 
+    /**
+     * Method launches getplayersCards, if argument is "pack"
+     */
     public boolean execute(String argument) {
         if(argument.toLowerCase().equalsIgnoreCase("pack")) {
             player.getplayersCards();
