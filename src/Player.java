@@ -55,6 +55,7 @@ public class Player extends Pack implements Serializable {
             playerPack.remove(cardToPlay);
             cardPack.add(cardToPlay);
             playerChangeColor();
+            setSpecialEfect(false);
 
             return "Player played a J card and changed color to: " + getActualCardColor();
         }
@@ -62,6 +63,7 @@ public class Player extends Pack implements Serializable {
         if (cardColor == getActualCardColor() || cardType == getActualCardType()) {
             playerPack.remove(cardToPlay);
             cardPack.add(cardToPlay);
+            setSpecialEfect(false);
 
             setActualCardColor(cardColor);
             setActualCardType(cardType);

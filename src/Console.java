@@ -24,7 +24,7 @@ public class Console {
 
 
     public void inicialization(){
-        map.put("draw", new DrawACard(player, computer));
+        map.put("draw", new DrawACard(player, computer, pack));
         map.put("play", new PlayACard(player, computer));
         map.put("exit", new Exit());
         map.put("save", new SaveGame(files, this));

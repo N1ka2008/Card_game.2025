@@ -4,15 +4,17 @@ public class DrawACard extends Command{
     private Player player;
     Computer computer;
 
-    public DrawACard(Player player, Computer computer) {
+    public DrawACard(Player player, Computer computer, Pack pack) {
         this.player = player;
         this.computer = computer;
+        this.pack = pack;
     }
 
     @Override
     public boolean execute(String argument) {
         if(argument.toLowerCase().equalsIgnoreCase("card")){
             player.playerDrawCard();
+            pack.setSpecialEfect(false);
             player.setTurn(false);
             computer.setTurn(true);
         }

@@ -40,6 +40,7 @@ public class Computer extends Pack implements Serializable {
                 System.out.println("Computer played: " + card.toString());
                 iterator.remove();
                 cardPack.add(card);
+                setSpecialEfect(false);
 
                 if (card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
                     DiamondsK();
@@ -59,6 +60,7 @@ public class Computer extends Pack implements Serializable {
                     System.out.println("Computer played: " + card.toString());
                     iterator.remove();
                     cardPack.add(card);
+                    setSpecialEfect(false);
                     changeColor();
                     System.out.println("Computer changed color to: " + getActualCardColor());
                     hasPlayedCard = true;
@@ -69,6 +71,7 @@ public class Computer extends Pack implements Serializable {
 
         if (!hasPlayedCard) {
             drawCard();
+            setSpecialEfect(false);
         }
 
         setTurn(false);

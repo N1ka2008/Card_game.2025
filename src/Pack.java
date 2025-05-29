@@ -13,6 +13,7 @@ public class Pack implements Serializable {
     private CardColor actualCardColor;
     private CardType actualCardType;
     private boolean skipTurn = false;
+    private boolean specialEfect = false;
 
     public Pack() {
         this.cardPack = new ArrayList<>();
@@ -34,7 +35,6 @@ public class Pack implements Serializable {
             this.actualCardType = getMelded().getType();
         }
     }
-
 
      public Pack(Computer computer, Player player) {
         this.computer = computer;
@@ -87,7 +87,7 @@ public class Pack implements Serializable {
     }
 
     public boolean meldedIsSeven(){
-        if(melded == null || !melded.getType().equals(CardType.SEVEN)) {
+        if(melded == null || !melded.getType().equals(CardType.SEVEN) || isSpecialEfect()) {
             return false;
         }
 
@@ -97,6 +97,7 @@ public class Pack implements Serializable {
         }
 
         System.out.println("SEVEN played! Drawing 2 cards for current player.");
+        specialEfect = true;
 
         if (player.isTurn()) {
             Card[] firstTwoCardsPlayer = new Card[2];
@@ -140,7 +141,8 @@ public class Pack implements Serializable {
         }
 
         boolean meldedIsA;
-        if(getActualCardType().equals(CardType.A)){
+        if(getActualCardType().equals(CardType.A) && !isSpecialEfect()){
+            specialEfect = true;
             meldedIsA = true;
             skipTurn = true;
             if(player.isTurn()) {
@@ -211,5 +213,13 @@ public class Pack implements Serializable {
 
     public void setSkipTurn(boolean skipTurn) {
         this.skipTurn = skipTurn;
+    }
+
+    public boolean isSpecialEfect() {
+        return specialEfect;
+    }
+
+    public void setSpecialEfect(boolean specialEfect) {
+        this.specialEfect = specialEfect;
     }
 }

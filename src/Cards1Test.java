@@ -1,36 +1,36 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.io.TempDir;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.*;
-import java.nio.file.Path;
 import java.util.List;
 
 /**
- * This class tests coading cards from Cards.txt.
- * Class is not mine, source: Claude ai
+ * This class tests loading cards from Cards.txt.
  */
 public class Cards1Test {
 
-    @TempDir
-    Path tempDir;
 
     private File file;
 
     @BeforeEach
     public void setUp() throws IOException {
-        file = tempDir.resolve("test_cards.txt").toFile();
+        file = new File("test_cards.txt");
     }
 
+    /**
+     * Method tests loading cards from text file Cards.txt
+     * cards.stream().anyMatch(c -> c.getType() and PrintWriter writer = new PrintWriter(file) is not from me. source: jenkov.com, Claude ai
+     */
     @Test
     public void testCardsFromFile() throws IOException {
         try (PrintWriter writer = new PrintWriter(file)) {
             writer.println("A;HEARTS");
             writer.println("K;SPADES");
             writer.println("SEVEN;DIAMONDS");
+            writer.close();
         }
 
-        List<Card> cards = Cards1.readCardsFromFile(file.getAbsolutePath());
+        List<Card> cards = Cards1.readCardsFromFile(file.getPath());
 
         assertEquals(3, cards.size());
         assertTrue(cards.stream().anyMatch(c -> c.getType() == CardType.A && c.getColor() == CardColor.HEARTS));

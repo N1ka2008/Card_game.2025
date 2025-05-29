@@ -28,6 +28,7 @@ public class Game implements Serializable {
         computer.setTurn(false);
 
         pack.startCards();
+        pack.initializeMelded();
 
         player.setActualCardColor(pack.getActualCardColor());
         player.setActualCardType(pack.getActualCardType());
@@ -56,6 +57,8 @@ public class Game implements Serializable {
     public void play() throws IOException {
         try{
             files.manual(".idea/Manual.txt");
+            System.out.println("\n\nActual color: " + pack.getActualCardColor() + "\nActual type: " + pack.getActualCardType());
+
             do{
                 pack.initializeMelded();
 
@@ -66,15 +69,18 @@ public class Game implements Serializable {
                 pack.meldedIsA();
                 pack.meldedIsSeven();
 
-                System.out.println("\n\nActual color: " + pack.getActualCardColor() + "\nActual type: " + pack.getActualCardType());
-
                 if (computer.isTurn()) {
                     computer.playCard();
                     pack.setActualCardColor(computer.getActualCardColor());
+                    pack.setActualCardType(computer.getActualCardType());
                 } else {
                     console.start();
                     pack.setActualCardColor(player.getActualCardColor());
+                    pack.setActualCardType(player.getActualCardType());
                 }
+
+                System.out.println("\n\nActual color: " + pack.getActualCardColor() + "\nActual type: " + pack.getActualCardType());
+
 
                 player.setActualCardColor(pack.getActualCardColor());
                 player.setActualCardType(pack.getActualCardType());
