@@ -57,4 +57,29 @@ public class PackTest {
         assertTrue(computer.isTurn());
     }
 
+    /**
+     * Method tests if meldedIsSeven works correctly
+     */
+    @Test
+    public void testMeldedIsSeven() {
+        Card sevenCard = new Card(CardType.SEVEN, CardColor.HEARTS);
+        pack.setMelded(sevenCard);
+        pack.setActualCardType(CardType.SEVEN);
+
+        player.setTurn(true);
+        computer.setTurn(false);
+
+        int playerCards = player.playerPack.size();
+        int cardPackSize = pack.cardPack.size();
+
+        boolean result = pack.meldedIsSeven();
+
+        assertTrue(result);
+        assertEquals(playerCards + 2, player.playerPack.size());
+        assertEquals(cardPackSize - 2, pack.cardPack.size());
+        assertFalse(player.isTurn());
+        assertTrue(computer.isTurn());
+    }
+
+
 }

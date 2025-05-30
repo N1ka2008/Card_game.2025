@@ -27,7 +27,7 @@ public class Console {
 
 
     /**
-     * Method inicializes the commands
+     * Method initializes the commands
      */
     public void inicialization(){
         map.put("draw", new DrawACard(player, computer, pack));

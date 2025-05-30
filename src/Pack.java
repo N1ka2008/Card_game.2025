@@ -114,7 +114,7 @@ public class Pack implements Serializable {
             return false;
         }
 
-        System.out.println("SEVEN played! Drawing 2 cards for current player.");
+        System.out.println("SEVEN played! Drawing 2 cards");
         specialEfect = true;
 
         if (player.isTurn()) {
@@ -154,7 +154,7 @@ public class Pack implements Serializable {
     }
 
     /**
-     * Method wont let Player or Computer play, if melded card is ace
+     * Method will not let Player or Computer play, if melded card is ace
      */
     public boolean meldedIsA(){
         if(skipTurn) {

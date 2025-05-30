@@ -12,7 +12,7 @@ public class PlayACard extends Command{
     }
 
     /**
-     * Method splits argument into color and type. Controls if player has this card, if does it launches playerPlayCard
+     * Method splits argument into color and type. Controls if player has this card, if does it launch playerPlayCard
      * It also changes turn
      */
     @Override

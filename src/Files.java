@@ -41,7 +41,7 @@ public class Files {
     }
 
     /**
-     * Method copies data from saved file to current object
+     * Method copies data from a saved file to the current object
      */
     public boolean load(String fileName) {
         try {
@@ -78,7 +78,7 @@ public class Files {
                     return true;
                 }
             } catch (FileNotFoundException e) {
-                System.err.println("Save file not found: " + e.getMessage());
+                System.err.println("Saved file not found: " + e.getMessage());
                 return false;
             } catch (IOException e) {
                 System.err.println("Error loading game: " + e.getMessage());

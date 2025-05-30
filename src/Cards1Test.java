@@ -19,7 +19,7 @@ public class Cards1Test {
 
     /**
      * Method tests loading cards from text file Cards.txt
-     * cards.stream().anyMatch(c -> c.getType() and PrintWriter writer = new PrintWriter(file) is not from me. source: jenkov.com, Claude ai
+     * cards.stream().anyMatch(c -> c.getType() and PrintWriter writer = new PrintWriter(file) is not from me. Source: jenkov.com, Claude ai
      */
     @Test
     public void testCardsFromFile() throws IOException {

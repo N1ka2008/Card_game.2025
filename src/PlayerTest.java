@@ -48,13 +48,13 @@ public class PlayerTest {
      */
     @Test
     public void testPlayerDrawCard() {
-        int initialPackSize = player.cardPack.size();
-        int initialPlayerPackSize = player.playerPack.size();
+        int packSize = player.cardPack.size();
+        int playerPackSize = player.playerPack.size();
 
         String result = player.playerDrawCard();
 
-        assertEquals(initialPackSize - 1, player.cardPack.size());
-        assertEquals(initialPlayerPackSize + 1, player.playerPack.size());
+        assertEquals(packSize - 1, player.cardPack.size());
+        assertEquals(playerPackSize + 1, player.playerPack.size());
         assertTrue(result.contains("player drew a card"));
     }
 

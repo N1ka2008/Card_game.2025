@@ -49,13 +49,13 @@ public class ComputerTest {
      */
     @Test
     public void testDrawCard() {
-        int initialComputerPackSize = computer.computerPack.size();
-        int initialCardPackSize = computer.cardPack.size();
+        int computerPackSize = computer.computerPack.size();
+        int cardPackSize = computer.cardPack.size();
 
         computer.drawCard();
 
-        assertEquals(initialComputerPackSize + 1, computer.computerPack.size());
-        assertEquals(initialCardPackSize - 1, computer.cardPack.size());
+        assertEquals(computerPackSize + 1, computer.computerPack.size());
+        assertEquals(cardPackSize - 1, computer.cardPack.size());
     }
 
 }

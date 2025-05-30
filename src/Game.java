@@ -75,7 +75,6 @@ public class Game implements Serializable {
             System.out.println("\n\nActual color: " + pack.getActualCardColor() + "\nActual type: " + pack.getActualCardType());
 
             do{
-                pack.initializeMelded();
 
                 System.out.println("\nRemaining in the pack: " + pack.cardPack.size() + " cards");
                 System.out.println("Computer has: " + computer.getComputerPack().size() + " cards");
@@ -96,11 +95,12 @@ public class Game implements Serializable {
 
                 System.out.println("\n\nActual color: " + pack.getActualCardColor() + "\nActual type: " + pack.getActualCardType());
 
-
                 player.setActualCardColor(pack.getActualCardColor());
                 player.setActualCardType(pack.getActualCardType());
                 computer.setActualCardColor(pack.getActualCardColor());
                 computer.setActualCardType(pack.getActualCardType());
+
+                pack.initializeMelded();
 
                 System.out.println(gameOver());
             }while(!console.isGameIsOver());

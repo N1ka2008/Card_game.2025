@@ -74,7 +74,6 @@ public class Computer extends Pack implements Serializable {
 
         if (!hasPlayedCard) {
             drawCard();
-            setSpecialEfect(false);
         }
 
         setTurn(false);
