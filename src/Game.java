@@ -24,22 +24,18 @@ public class Game implements Serializable {
 
         pack.setPlayer(player);
         pack.setComputer(computer);
+        pack.setSpecialEfect(false);
 
-        player.cardPack = pack.cardPack;
-        computer.cardPack = pack.cardPack;
         computer.player = player;
+        computer.pack = pack;
         player.computer = computer;
+        player.pack = pack;
 
         player.setTurn(true);
         computer.setTurn(false);
 
         pack.startCards();
         pack.initializeMelded();
-
-        player.setActualCardColor(pack.getActualCardColor());
-        player.setActualCardType(pack.getActualCardType());
-        computer.setActualCardColor(pack.getActualCardColor());
-        computer.setActualCardType(pack.getActualCardType());
 
         if (pack.getActualCardType() == CardType.SEVEN) {
             pack.meldedIsSeven();
@@ -75,32 +71,25 @@ public class Game implements Serializable {
             System.out.println("\n\nActual color: " + pack.getActualCardColor() + "\nActual type: " + pack.getActualCardType());
 
             do{
+                pack.initializeMelded();
 
                 System.out.println("\nRemaining in the pack: " + pack.cardPack.size() + " cards");
                 System.out.println("Computer has: " + computer.getComputerPack().size() + " cards");
                 player.getplayersCards();
 
-                pack.meldedIsA();
-                pack.meldedIsSeven();
+                if(!pack.isSpecialEfect()) {
+                    pack.meldedIsA();
+                    pack.meldedIsSeven();
+                    pack.setSpecialEfect(true);
+                }
 
                 if (computer.isTurn()) {
                     computer.playCard();
-                    pack.setActualCardColor(computer.getActualCardColor());
-                    pack.setActualCardType(computer.getActualCardType());
                 } else {
                     console.start();
-                    pack.setActualCardColor(player.getActualCardColor());
-                    pack.setActualCardType(player.getActualCardType());
                 }
 
                 System.out.println("\n\nActual color: " + pack.getActualCardColor() + "\nActual type: " + pack.getActualCardType());
-
-                player.setActualCardColor(pack.getActualCardColor());
-                player.setActualCardType(pack.getActualCardType());
-                computer.setActualCardColor(pack.getActualCardColor());
-                computer.setActualCardType(pack.getActualCardType());
-
-                pack.initializeMelded();
 
                 System.out.println(gameOver());
             }while(!console.isGameIsOver());

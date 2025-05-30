@@ -5,10 +5,12 @@ public class PlayACard extends Command{
 
     private Player player;
     private Computer computer;
+    private Pack pack;
 
-    public PlayACard(Player player, Computer computer) {
+    public PlayACard(Player player, Computer computer, Pack pack) {
         this.player = player;
         this.computer = computer;
+        this.pack = pack;
     }
 
     /**
@@ -46,6 +48,7 @@ public class PlayACard extends Command{
             System.out.println(player.playerPlayCard(color, type));
             player.setTurn(false);
             computer.setTurn(true);
+            pack.setSpecialEfect(false);
             return true;
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid card! Check color and type");

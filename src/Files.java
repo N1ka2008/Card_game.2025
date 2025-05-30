@@ -54,16 +54,10 @@ public class Files {
                     Pack loadedPack = (Pack) gameState.get(2);
 
                     this.computer.computerPack = loadedComputer.computerPack;
-                    this.computer.cardPack = loadedComputer.cardPack;
                     this.computer.setTurn(loadedComputer.isTurn());
-                    this.computer.setActualCardColor(loadedComputer.getActualCardColor());
-                    this.computer.setActualCardType(loadedComputer.getActualCardType());
 
                     this.player.playerPack = loadedPlayer.playerPack;
-                    this.player.cardPack = loadedPlayer.cardPack;
                     this.player.setTurn(loadedPlayer.isTurn());
-                    this.player.setActualCardColor(loadedPlayer.getActualCardColor());
-                    this.player.setActualCardType(loadedPlayer.getActualCardType());
 
                     this.pack.cardPack = loadedPack.cardPack;
                     this.pack.setMelded(loadedPack.getMelded());
@@ -73,6 +67,9 @@ public class Files {
                     this.pack.setPlayer(this.player);
                     this.pack.setComputer(this.computer);
                     this.computer.player = this.player;
+                    this.player.computer = this.computer;
+                    this.player.pack = this.pack;
+                    this.computer.pack = this.pack;
 
                     System.out.println("Game loaded successfully!");
                     return true;

@@ -31,7 +31,7 @@ public class Console {
      */
     public void inicialization(){
         map.put("draw", new DrawACard(player, computer, pack));
-        map.put("play", new PlayACard(player, computer));
+        map.put("play", new PlayACard(player, computer, pack));
         map.put("exit", new Exit());
         map.put("save", new SaveGame(files, this));
         map.put("load", new LoadGame(files));

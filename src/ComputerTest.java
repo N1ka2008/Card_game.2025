@@ -11,6 +11,7 @@ public class ComputerTest {
     private Player player;
     private Computer computer;
     private ArrayList<Card> testCardPack;
+    private Pack pack;
 
     @Before
     public void setUp() {
@@ -25,23 +26,19 @@ public class ComputerTest {
         player = new Player();
         computer = new Computer();
 
-        player.cardPack = new ArrayList<>(testCardPack);
+        pack.cardPack = new ArrayList<>(testCardPack);
 
         player.playerPack = new ArrayList<>();
 
         computer.computerPack = new ArrayList<>();
-        computer.cardPack = player.cardPack;
-
-        player.setPlayer(player);
-        player.setComputer(computer);
 
         computer.player = player;
 
-        player.setActualCardColor(CardColor.HEARTS);
-        player.setActualCardType(CardType.A);
+        pack.setActualCardColor(CardColor.HEARTS);
+        pack.setActualCardType(CardType.A);
 
         Card initialMelded = new Card(CardType.A, CardColor.HEARTS);
-        player.setMelded(initialMelded);
+        pack.setMelded(initialMelded);
     }
 
     /**
@@ -50,12 +47,12 @@ public class ComputerTest {
     @Test
     public void testDrawCard() {
         int computerPackSize = computer.computerPack.size();
-        int cardPackSize = computer.cardPack.size();
+        int cardPackSize = pack.cardPack.size();
 
         computer.drawCard();
 
         assertEquals(computerPackSize + 1, computer.computerPack.size());
-        assertEquals(cardPackSize - 1, computer.cardPack.size());
+        assertEquals(cardPackSize - 1, pack.cardPack.size());
     }
 
 }

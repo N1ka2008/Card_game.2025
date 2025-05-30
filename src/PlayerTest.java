@@ -10,6 +10,7 @@ public class PlayerTest {
     private Player player;
     private Computer computer;
     private ArrayList<Card> testCardPack;
+    private Pack pack;
 
     @Before
     public void setUp() {
@@ -24,23 +25,19 @@ public class PlayerTest {
         player = new Player();
         computer = new Computer();
 
-        player.cardPack = new ArrayList<>(testCardPack);
+        pack.cardPack = new ArrayList<>(testCardPack);
 
         player.playerPack = new ArrayList<>();
 
         computer.computerPack = new ArrayList<>();
-        computer.cardPack = player.cardPack;
-
-        player.setPlayer(player);
-        player.setComputer(computer);
 
         computer.player = player;
 
-        player.setActualCardColor(CardColor.HEARTS);
-        player.setActualCardType(CardType.A);
+        pack.setActualCardColor(CardColor.HEARTS);
+        pack.setActualCardType(CardType.A);
 
         Card initialMelded = new Card(CardType.A, CardColor.HEARTS);
-        player.setMelded(initialMelded);
+        pack.setMelded(initialMelded);
     }
 
     /**
@@ -48,12 +45,12 @@ public class PlayerTest {
      */
     @Test
     public void testPlayerDrawCard() {
-        int packSize = player.cardPack.size();
+        int packSize = pack.cardPack.size();
         int playerPackSize = player.playerPack.size();
 
         String result = player.playerDrawCard();
 
-        assertEquals(packSize - 1, player.cardPack.size());
+        assertEquals(packSize - 1, pack.cardPack.size());
         assertEquals(playerPackSize + 1, player.playerPack.size());
         assertTrue(result.contains("player drew a card"));
     }

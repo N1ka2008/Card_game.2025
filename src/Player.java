@@ -8,14 +8,15 @@ import java.util.Scanner;
 /**
  * Method for player and its methods, extends Pack
  */
-public class Player extends Pack implements Serializable {
+public class Player implements Serializable {
 
     private boolean turn;
     Computer computer;
+    Pack pack;
 
-    public Player(ArrayList<Card> cardPack, Card melded, Computer computer) {
-        super(cardPack, melded);
+    public Player( Computer computer, Pack pack) {
         this.computer = computer;
+        this.pack = pack;
     }
 
     public Player(){
@@ -31,9 +32,9 @@ public class Player extends Pack implements Serializable {
      * Method allows player to draw a card
      */
     public String playerDrawCard(){
-        Card card = cardPack.get(0);
+        Card card = pack.cardPack.get(0);
         playerPack.add(card);
-        cardPack.remove(card);
+        pack.cardPack.remove(card);
         return "player drew a card" + card.toString();
     }
 
@@ -59,24 +60,22 @@ public class Player extends Pack implements Serializable {
 
         if (cardType == CardType.J) {
             playerPack.remove(cardToPlay);
-            cardPack.add(cardToPlay);
+            pack.cardPack.add(cardToPlay);
             playerChangeColor();
-            setSpecialEfect(false);
 
-            return "Player played a J card and changed color to: " + getActualCardColor();
+            return "Player played a J card and changed color to: " + pack.getActualCardColor();
         }
 
-        if (cardColor == getActualCardColor() || cardType == getActualCardType()) {
+        if (cardColor == pack.getActualCardColor() || cardType == pack.getActualCardType()) {
             playerPack.remove(cardToPlay);
-            cardPack.add(cardToPlay);
-            setSpecialEfect(false);
+            pack.cardPack.add(cardToPlay);
 
-            setActualCardColor(cardColor);
-            setActualCardType(cardType);
+            pack.setActualCardColor(cardColor);
+            pack.setActualCardType(cardType);
 
             if (computer != null) {
-                setActualCardColor(cardColor);
-                setActualCardType(cardType);
+                pack.setActualCardColor(cardColor);
+                pack.setActualCardType(cardType);
             }
 
             if (cardType == CardType.K && cardColor == CardColor.DIAMONDS) {
@@ -106,7 +105,7 @@ public class Player extends Pack implements Serializable {
             String input = sc.next().toUpperCase();
             CardColor newColor = CardColor.valueOf(input);
 
-            setActualCardColor(newColor);
+            pack.setActualCardColor(newColor);
 
             System.out.println("Color changed to: " + newColor);
             return "player changed color to " + newColor;
@@ -114,7 +113,7 @@ public class Player extends Pack implements Serializable {
             System.out.println("Invalid color! Changing to HEARTS");
             CardColor defaultColor = CardColor.HEARTS;
 
-            setActualCardColor(defaultColor);
+            pack.setActualCardColor(defaultColor);
 
             return "player changed color to HEARTS";
         }
@@ -124,13 +123,13 @@ public class Player extends Pack implements Serializable {
      * Method give player the opinion to draw one extra card
      */
     public void playerDiamondsK(){
-        Card card = cardPack.get(0);
+        Card card = pack.cardPack.get(0);
         System.out.println("Do you want to draw one extra card?");
         String choice = sc.next();
             switch (choice) {
                 case "yes":
                     playerPack.add(card);
-                    cardPack.remove(card);
+                    pack.cardPack.remove(card);
                     System.out.println("one card drew");
                     break;
                     case "no":

@@ -8,17 +8,18 @@ import java.util.Random;
 /**
  * Class for computer and its methods, extends from Pack
  */
-public class Computer extends Pack implements Serializable {
+public class Computer implements Serializable {
 
     private boolean turn;
     Player player;
+    Pack pack;
 
     public Computer() {
     }
 
-    public Computer(ArrayList<Card> cardPack, Card melded, Player player) {
-        super(cardPack, melded);
+    public Computer( Player player, Pack pack) {
         this.player = player;
+        this.pack = pack;
     }
 
     public ArrayList<Card> getComputerPack() {
@@ -39,17 +40,17 @@ public class Computer extends Pack implements Serializable {
 
         for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
             Card card = iterator.next();
-            if (card.getColor().equals(getActualCardColor()) || card.getType().equals(getActualCardType())) {
+            if (card.getColor().equals(pack.getActualCardColor()) || card.getType().equals(pack.getActualCardType())) {
                 System.out.println("Computer played: " + card.toString());
                 iterator.remove();
-                cardPack.add(card);
-                setSpecialEfect(false);
+                pack.cardPack.add(card);
+                pack.setSpecialEfect(false);
 
                 if (card.getType().equals(CardType.K) && card.getColor().equals(CardColor.DIAMONDS)) {
                     DiamondsK();
                 }
-                setActualCardType(card.getType());
-                setActualCardColor(card.getColor());
+                pack.setActualCardType(card.getType());
+                pack.setActualCardColor(card.getColor());
 
                 hasPlayedCard = true;
                 break;
@@ -62,10 +63,10 @@ public class Computer extends Pack implements Serializable {
                 if (card.getType().equals(CardType.J)) {
                     System.out.println("Computer played: " + card.toString());
                     iterator.remove();
-                    cardPack.add(card);
-                    setSpecialEfect(false);
+                    pack.cardPack.add(card);
+                    pack.setSpecialEfect(false);
                     changeColor();
-                    System.out.println("Computer changed color to: " + getActualCardColor());
+                    System.out.println("Computer changed color to: " + pack.getActualCardColor());
                     hasPlayedCard = true;
                     break;
                 }
@@ -84,9 +85,9 @@ public class Computer extends Pack implements Serializable {
      * This method allows Computer to draw a card
      */
     public void drawCard() {
-        Card card = cardPack.get(0);
+        Card card = pack.cardPack.get(0);
         computerPack.add(card);
-        cardPack.remove(card);
+        pack.cardPack.remove(card);
         System.out.println("computer drew a card");
     }
 
@@ -129,10 +130,7 @@ public class Computer extends Pack implements Serializable {
                 newColor = CardColor.SPADES;
             }
 
-            setActualCardColor(newColor);
-            if (player != null) {
-                player.setActualCardColor(newColor);
-            }
+            pack.setActualCardColor(newColor);
 
         }
     }
@@ -150,11 +148,11 @@ public class Computer extends Pack implements Serializable {
      */
     public void DiamondsK(){
         int number;
-        Card card = cardPack.get(0);
+        Card card = pack.cardPack.get(0);
             number = rd.nextInt(2);
             if (number == 1) {
                 computerPack.add(card);
-                cardPack.remove(card);
+                pack.cardPack.remove(card);
                 System.out.println("Computer drew one extra card");
             }
     }
