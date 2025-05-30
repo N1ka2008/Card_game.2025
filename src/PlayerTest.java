@@ -14,6 +14,10 @@ public class PlayerTest {
 
     @Before
     public void setUp() {
+        player = new Player();
+        computer = new Computer();
+        pack = new Pack();
+
         testCardPack = new ArrayList<>();
         testCardPack.add(new Card(CardType.A, CardColor.HEARTS));
         testCardPack.add(new Card(CardType.K, CardColor.SPADES));
@@ -22,16 +26,17 @@ public class PlayerTest {
         testCardPack.add(new Card(CardType.NINE, CardColor.DIAMONDS));
         testCardPack.add(new Card(CardType.TEN, CardColor.HEARTS));
 
-        player = new Player();
-        computer = new Computer();
-
         pack.cardPack = new ArrayList<>(testCardPack);
 
         player.playerPack = new ArrayList<>();
-
         computer.computerPack = new ArrayList<>();
 
         computer.player = player;
+        computer.pack = pack;
+        player.computer = computer;
+        player.pack = pack;
+        pack.setPlayer(player);
+        pack.setComputer(computer);
 
         pack.setActualCardColor(CardColor.HEARTS);
         pack.setActualCardType(CardType.A);
@@ -56,7 +61,7 @@ public class PlayerTest {
     }
 
     /**
-     * Method tests what happens if player plays invalid  card
+     * Method tests what happens if player plays invalid card
      */
     @Test
     public void testPlayerPlayInvalidCard() {

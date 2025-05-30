@@ -76,11 +76,8 @@ public class Game implements Serializable {
                 System.out.println("Computer has: " + computer.getComputerPack().size() + " cards");
                 player.getplayersCards();
 
-                if(!pack.isSpecialEfect()) {
-                    pack.meldedIsA();
-                    pack.meldedIsSeven();
-                    pack.setSpecialEfect(true);
-                }
+                pack.meldedIsA();
+                pack.meldedIsSeven();
 
                 if (computer.isTurn()) {
                     computer.playCard();

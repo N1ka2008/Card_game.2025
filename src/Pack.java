@@ -105,16 +105,16 @@ public class Pack implements Serializable {
      * Method gives Player or Computer 2 cards, if melded card is seven
      */
     public boolean meldedIsSeven(){
-        if(melded == null || !melded.getType().equals(CardType.SEVEN)) {
+        if(!actualCardType.equals(CardType.SEVEN) || specialEfect == true) {
             return false;
         }
-
         if(player == null || computer == null) {
             System.out.println("Player or computer not initialized");
             return false;
         }
 
         System.out.println("SEVEN played! Drawing 2 cards");
+        specialEfect = true;
 
         if (player.isTurn()) {
             Card[] firstTwoCardsPlayer = new Card[2];
@@ -161,7 +161,7 @@ public class Pack implements Serializable {
         }
 
         boolean meldedIsA;
-        if(getActualCardType().equals(CardType.A)){
+        if(getActualCardType().equals(CardType.A) && specialEfect == false) {
             specialEfect = true;
             meldedIsA = true;
             skipTurn = true;
@@ -172,6 +172,7 @@ public class Pack implements Serializable {
                 computer.setTurn(false);
                 player.setTurn(true);
             }
+            specialEfect = true;
             System.out.println("An Ace was played! Turn is skipped.");
         }else{
             meldedIsA = false;

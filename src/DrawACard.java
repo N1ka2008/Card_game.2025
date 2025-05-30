@@ -19,7 +19,7 @@ public class DrawACard extends Command{
     @Override
     public boolean execute(String argument) {
         if(argument.toLowerCase().equalsIgnoreCase("card")){
-            player.playerDrawCard();
+            System.out.println(player.playerDrawCard());
             player.setTurn(false);
             computer.setTurn(true);
         }

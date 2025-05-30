@@ -35,7 +35,7 @@ public class Player implements Serializable {
         Card card = pack.cardPack.get(0);
         playerPack.add(card);
         pack.cardPack.remove(card);
-        return "player drew a card" + card.toString();
+        return "player drew a card";
     }
 
     /**
