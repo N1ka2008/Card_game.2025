@@ -62,7 +62,7 @@ public class Game implements Serializable {
 
     /**
      * Method contains game logic
-     * In each round it initializes melded and synchronizes actual color and type
+     * In each round it checks if specialEfect is false. If it is meldedIsA and meldedIsSeven can run
      * It controls who can play
      */
     public void play() throws IOException {
@@ -71,7 +71,6 @@ public class Game implements Serializable {
             System.out.println("\n\nActual color: " + pack.getActualCardColor() + "\nActual type: " + pack.getActualCardType());
 
             do{
-                pack.initializeMelded();
 
                 System.out.println("\nRemaining in the pack: " + pack.cardPack.size() + " cards");
                 System.out.println("Computer has: " + computer.getComputerPack().size() + " cards");

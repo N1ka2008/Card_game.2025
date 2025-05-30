@@ -66,6 +66,7 @@ public class Computer implements Serializable {
                     pack.cardPack.add(card);
                     pack.setSpecialEfect(false);
                     changeColor();
+                    pack.setActualCardType(CardType.J);
                     System.out.println("Computer changed color to: " + pack.getActualCardColor());
                     hasPlayedCard = true;
                     break;
@@ -131,6 +132,7 @@ public class Computer implements Serializable {
             }
 
             pack.setActualCardColor(newColor);
+
 
         }
     }

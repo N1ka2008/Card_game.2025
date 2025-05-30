@@ -62,6 +62,7 @@ public class Player implements Serializable {
             playerPack.remove(cardToPlay);
             pack.cardPack.add(cardToPlay);
             playerChangeColor();
+            pack.setActualCardType(CardType.J);
 
             return "Player played a J card and changed color to: " + pack.getActualCardColor();
         }
@@ -72,11 +73,6 @@ public class Player implements Serializable {
 
             pack.setActualCardColor(cardColor);
             pack.setActualCardType(cardType);
-
-            if (computer != null) {
-                pack.setActualCardColor(cardColor);
-                pack.setActualCardType(cardType);
-            }
 
             if (cardType == CardType.K && cardColor == CardColor.DIAMONDS) {
                 playerDiamondsK();
