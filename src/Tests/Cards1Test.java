@@ -1,8 +1,14 @@
+package Tests;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.*;
 import java.util.List;
+import Classes.Card;
+import Classes.CardType;
+import Classes.CardColor;
+import Classes.Cards1;
 
 /**
  * This class tests loading cards from Cards.txt.

@@ -1,7 +1,9 @@
+package Commands;
+
 /**
  * Class for command exit
  */
-public class Exit extends Command{
+public class Exit extends Command {
 
     /**
      * Method execute

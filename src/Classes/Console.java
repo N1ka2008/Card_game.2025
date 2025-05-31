@@ -1,9 +1,13 @@
+package Classes;
+
+import Commands.*;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * Console for commands
+ * Classes.Console for commands
  */
 public class Console {
 

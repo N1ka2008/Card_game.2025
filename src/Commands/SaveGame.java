@@ -1,7 +1,11 @@
+package Commands;
+import Classes.Files;
+import Classes.Console;
+
 /**
  * Class for command save game
  */
-public class SaveGame extends Command{
+public class SaveGame extends Command {
 
     private Files savingFiles;
     private Console console;

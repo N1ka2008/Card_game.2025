@@ -1,3 +1,5 @@
+package Classes;
+
 /**
  * Enum for card color
  */

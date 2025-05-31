@@ -1,6 +1,15 @@
+package Tests;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.ArrayList;
+import Classes.Pack;
+import Classes.Player;
+import Classes.Computer;
+import Classes.Card;
+import Classes.CardType;
+import Classes.CardColor;
+
 import static org.junit.Assert.*;
 
 /**
@@ -37,8 +46,8 @@ public class PackTest {
         pack.initializeMelded();
 
         assertNotNull(pack.getMelded());
-        assertEquals(pack.getMelded().getColor(), pack.getActualCardColor());
-        assertEquals(pack.getMelded().getType(), pack.getActualCardType());
+        Assert.assertEquals(pack.getMelded().getColor(), pack.getActualCardColor());
+        Assert.assertEquals(pack.getMelded().getType(), pack.getActualCardType());
     }
 
     /**
@@ -75,8 +84,8 @@ public class PackTest {
         boolean result = pack.meldedIsSeven();
 
         assertTrue(result);
-        assertEquals(playerCards + 2, player.playerPack.size());
-        assertEquals(cardPackSize - 2, pack.cardPack.size());
+        Assert.assertEquals(playerCards + 2, player.playerPack.size());
+        Assert.assertEquals(cardPackSize - 2, pack.cardPack.size());
         assertFalse(player.isTurn());
         assertTrue(computer.isTurn());
     }

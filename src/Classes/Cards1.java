@@ -1,3 +1,5 @@
+package Classes;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -46,7 +48,7 @@ public class Cards1 {
     }
 
     /**
-     * Method parses string to Enum value of CardType
+     * Method parses string to Enum value of Classes.CardType
      */
     private static CardType parseCardType(String typeStr) {
         try {
@@ -57,7 +59,7 @@ public class Cards1 {
         }
     }
     /**
-     * Method parses string to Enum value of CardColor
+     * Method parses string to Enum value of Classes.CardColor
      */
     private static CardColor parseCardColor(String colorStr) {
         try {

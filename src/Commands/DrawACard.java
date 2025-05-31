@@ -1,7 +1,12 @@
+package Commands;
+import Classes.Player;
+import Classes.Computer;
+import Classes.Pack;
+
 /**
  * Class for draw card command
  */
-public class DrawACard extends Command{
+public class DrawACard extends Command {
 
     private Pack pack;
     private Player player;

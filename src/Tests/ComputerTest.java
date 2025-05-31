@@ -1,12 +1,21 @@
+package Tests;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
-import static org.junit.Assert.*;
+import Classes.Player;
+import Classes.Pack;
+import Classes.Card;
+import Classes.Computer;
+import Classes.CardType;
+import Classes.CardColor;
 
 /**
- * Class for testing Player
+ * Class for testinf Classes.Computer
  */
-public class PlayerTest {
+public class ComputerTest {
+
     private Player player;
     private Computer computer;
     private ArrayList<Card> testCardPack;
@@ -46,31 +55,17 @@ public class PlayerTest {
     }
 
     /**
-     * Method tests if playerDrawCard works correctly
+     * Method tests if Classes.Computer can draw a card
      */
     @Test
-    public void testPlayerDrawCard() {
-        int packSize = pack.cardPack.size();
-        int playerPackSize = player.playerPack.size();
+    public void testDrawCard() {
+        int computerPackSize = computer.computerPack.size();
+        int cardPackSize = pack.cardPack.size();
 
-        String result = player.playerDrawCard();
+        computer.drawCard();
 
-        assertEquals(packSize - 1, pack.cardPack.size());
-        assertEquals(playerPackSize + 1, player.playerPack.size());
-        assertTrue(result.contains("player drew a card"));
+        Assert.assertEquals(computerPackSize + 1, computer.computerPack.size());
+        Assert.assertEquals(cardPackSize - 1, pack.cardPack.size());
     }
 
-    /**
-     * Method tests what happens if player plays invalid card
-     */
-    @Test
-    public void testPlayerPlayInvalidCard() {
-        Card invalidCard = new Card(CardType.EIGHT, CardColor.CLUBS);
-        player.playerPack.add(invalidCard);
-
-        String result = player.playerPlayCard("CLUBS", "EIGHT");
-
-        assertEquals("You cannot play this card", result);
-        assertTrue(player.playerPack.contains(invalidCard));
-    }
 }

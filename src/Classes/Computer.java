@@ -1,3 +1,5 @@
+package Classes;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -6,18 +8,18 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * Class for computer and its methods, extends from Pack
+ * Class for computer and its methods, extends from Classes.Pack
  */
 public class Computer implements Serializable {
 
     private boolean turn;
-    Player player;
-    Pack pack;
+    public Player player;
+    public Pack pack;
 
     public Computer() {
     }
 
-    public Computer( Player player, Pack pack) {
+    public Computer(Player player, Pack pack) {
         this.player = player;
         this.pack = pack;
     }
@@ -31,17 +33,17 @@ public class Computer implements Serializable {
     /**
      * This method controls which cards can computer play and then plays them.
      * It also applies methods DiamondsK(), changeColor() and drawCard()
-     * Iterator<Card>, iterator.hasNext() and iterator.next() is not mine. Source: Chat gpt
+     * Iterator<Classes.Card>, iterator.hasNext() and iterator.next() is not mine. Source: Chat gpt
      * Rest of the method is mine
      */
     public void playCard() {
-        System.out.println("\nComputer's turn");
+        System.out.println("\nClasses.Computer's turn");
         boolean hasPlayedCard = false;
 
         for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
             Card card = iterator.next();
             if (card.getColor().equals(pack.getActualCardColor()) || card.getType().equals(pack.getActualCardType())) {
-                System.out.println("Computer played: " + card.toString());
+                System.out.println("Classes.Computer played: " + card.toString());
                 iterator.remove();
                 pack.cardPack.add(card);
                 pack.setSpecialEfect(false);
@@ -61,13 +63,13 @@ public class Computer implements Serializable {
             for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
                 Card card = iterator.next();
                 if (card.getType().equals(CardType.J)) {
-                    System.out.println("Computer played: " + card.toString());
+                    System.out.println("Classes.Computer played: " + card.toString());
                     iterator.remove();
                     pack.cardPack.add(card);
                     pack.setSpecialEfect(false);
                     changeColor();
                     pack.setActualCardType(CardType.J);
-                    System.out.println("Computer changed color to: " + pack.getActualCardColor());
+                    System.out.println("Classes.Computer changed color to: " + pack.getActualCardColor());
                     hasPlayedCard = true;
                     break;
                 }
@@ -83,7 +85,7 @@ public class Computer implements Serializable {
     }
 
     /**
-     * This method allows Computer to draw a card
+     * This method allows Classes.Computer to draw a card
      */
     public void drawCard() {
         Card card = pack.cardPack.get(0);
@@ -93,7 +95,7 @@ public class Computer implements Serializable {
     }
 
     /**
-     * This method allows Computer to change the actual card color
+     * This method allows Classes.Computer to change the actual card color
      * first it counts which color is the most and then changes the actual color to it
      */
     public void changeColor() {
@@ -146,7 +148,7 @@ public class Computer implements Serializable {
 
     /**
      * Method for Diamonds K
-     * if Random is 1, Computer will draw one extra card
+     * if Random is 1, Classes.Computer will draw one extra card
      */
     public void DiamondsK(){
         int number;
@@ -155,7 +157,7 @@ public class Computer implements Serializable {
             if (number == 1) {
                 computerPack.add(card);
                 pack.cardPack.remove(card);
-                System.out.println("Computer drew one extra card");
+                System.out.println("Classes.Computer drew one extra card");
             }
     }
 

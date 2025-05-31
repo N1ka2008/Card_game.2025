@@ -1,3 +1,5 @@
+package Classes;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -6,13 +8,13 @@ import java.util.Optional;
 import java.util.Scanner;
 
 /**
- * Method for player and its methods, extends Pack
+ * Method for player and its methods, extends Classes.Pack
  */
 public class Player implements Serializable {
 
     private boolean turn;
-    Computer computer;
-    Pack pack;
+    public Computer computer;
+    public Pack pack;
 
     public Player( Computer computer, Pack pack) {
         this.computer = computer;
@@ -41,7 +43,7 @@ public class Player implements Serializable {
     /**
      * This method controls which cards can player play.
      * It also applies methods playerDiamondsK(), playerChangeColor() and playerDrawCard()
-     * Optional<Card> optionalCard = playerPack.stream(), .filter() and .findFirst() is not mine. Source: Chat gpt
+     * Optional<Classes.Card> optionalCard = playerPack.stream(), .filter() and .findFirst() is not mine. Source: Chat gpt
      * Rest of the method is mine
      */
     public String playerPlayCard(String color, String type){
@@ -64,7 +66,7 @@ public class Player implements Serializable {
             playerChangeColor();
             pack.setActualCardType(CardType.J);
 
-            return "Player played a J card and changed color to: " + pack.getActualCardColor();
+            return "Classes.Player played a J card and changed color to: " + pack.getActualCardColor();
         }
 
         if (cardColor == pack.getActualCardColor() || cardType == pack.getActualCardType()) {
@@ -78,7 +80,7 @@ public class Player implements Serializable {
                 playerDiamondsK();
             }
 
-            return "Player played a card: " + cardToPlay;
+            return "Classes.Player played a card: " + cardToPlay;
         }
 
         return "You cannot play this card";

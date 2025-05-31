@@ -1,7 +1,10 @@
+package Commands;
+import Classes.Files;
+
 /**
  * Class for command see manual
  */
-public class SeeManual extends Command{
+public class SeeManual extends Command {
 
     private Files manual;
 

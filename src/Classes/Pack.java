@@ -1,7 +1,8 @@
+package Classes;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.TreeSet;
 
 /**
  * Class for the main pack and its methods
@@ -80,7 +81,7 @@ public class Pack implements Serializable {
     }
 
     /**
-     * Method gives Player and Computer 4 start cards
+     * Method gives Classes.Player and Classes.Computer 4 start cards
      */
     public void startCards(){
         Card[] firstEightCards = new Card[8];
@@ -102,14 +103,14 @@ public class Pack implements Serializable {
     }
 
     /**
-     * Method gives Player or Computer 2 cards, if melded card is seven
+     * Method gives Classes.Player or Classes.Computer 2 cards, if melded card is seven
      */
     public boolean meldedIsSeven(){
         if(!actualCardType.equals(CardType.SEVEN) || specialEfect == true) {
             return false;
         }
         if(player == null || computer == null) {
-            System.out.println("Player or computer not initialized");
+            System.out.println("Classes.Player or computer not initialized");
             return false;
         }
 
@@ -131,7 +132,7 @@ public class Pack implements Serializable {
             }
             player.setTurn(false);
             computer.setTurn(true);
-            System.out.println("Player drew 2 cards");
+            System.out.println("Classes.Player drew 2 cards");
         } else {
             Card[] firstTwoCardsComputer = new Card[2];
             Iterator<Card> iterator = cardPack.iterator();
@@ -147,13 +148,13 @@ public class Pack implements Serializable {
             }
             computer.setTurn(false);
             player.setTurn(true);
-            System.out.println("Computer drew 2 cards");
+            System.out.println("Classes.Computer drew 2 cards");
         }
         return true;
     }
 
     /**
-     * Method will not let Player or Computer play, if melded card is ace
+     * Method will not let Classes.Player or Classes.Computer play, if melded card is ace
      */
     public boolean meldedIsA(){
         if(skipTurn) {

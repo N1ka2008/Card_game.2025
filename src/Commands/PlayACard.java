@@ -1,7 +1,15 @@
+package Commands;
+import Classes.Player;
+import Classes.Computer;
+import Classes.Pack;
+import Classes.CardColor;
+import Classes.CardType;
+import Classes.Card;
+
 /**
  * Class for command play card
  */
-public class PlayACard extends Command{
+public class PlayACard extends Command {
 
     private Player player;
     private Computer computer;

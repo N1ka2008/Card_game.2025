@@ -1,7 +1,10 @@
+package Commands;
+import Classes.Player;
+
 /**
  * Class for command show pack
  */
-public class GetPlayerPack extends Command{
+public class GetPlayerPack extends Command {
 
     private Player player;
 

@@ -1,3 +1,5 @@
+package Commands;
+
 /**
  * Abstract class for commands
  */
