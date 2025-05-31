@@ -48,16 +48,16 @@ public class Game implements Serializable {
     }
 
     /**
-     * Method controls whether Classes.Player or Classes.Computer have empty pack
+     * Method controls whether Player or Computer have empty pack
      * It sets gameIsOver to true
      */
     public String gameOver(){
         if(player.getPlayerPack().isEmpty()){
             console.setGameIsOver(true);
-            return "\n\n🎉Classes.Player is the winner🎂";
+            return "\n\n🎉Player is the winner🎂";
         }else if(computer.getComputerPack().isEmpty()){
             console.setGameIsOver(true);
-            return "\n\n✨Classes.Computer is the winner✨";
+            return "\n\n✨Computer is the winner✨";
         }
         return "";
     }
@@ -75,7 +75,7 @@ public class Game implements Serializable {
             do{
 
                 System.out.println("\nRemaining in the pack: " + pack.cardPack.size() + " cards");
-                System.out.println("Classes.Computer has: " + computer.getComputerPack().size() + " cards");
+                System.out.println("Computer has: " + computer.getComputerPack().size() + " cards");
                 player.getplayersCards();
 
                 pack.meldedIsA();
@@ -91,7 +91,7 @@ public class Game implements Serializable {
 
                 System.out.println(gameOver());
             }while(!console.isGameIsOver());
-            System.out.println("\n\n\n🎆Classes.Game over🎆");
+            System.out.println("\n\n\n🎆Game over🎆");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

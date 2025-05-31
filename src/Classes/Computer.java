@@ -37,13 +37,13 @@ public class Computer implements Serializable {
      * Rest of the method is mine
      */
     public void playCard() {
-        System.out.println("\nClasses.Computer's turn");
+        System.out.println("\nComputer's turn");
         boolean hasPlayedCard = false;
 
         for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
             Card card = iterator.next();
             if (card.getColor().equals(pack.getActualCardColor()) || card.getType().equals(pack.getActualCardType())) {
-                System.out.println("Classes.Computer played: " + card.toString());
+                System.out.println("Computer played: " + card.toString());
                 iterator.remove();
                 pack.cardPack.add(card);
                 pack.setSpecialEfect(false);
@@ -63,13 +63,13 @@ public class Computer implements Serializable {
             for (Iterator<Card> iterator = computerPack.iterator(); iterator.hasNext(); ) {
                 Card card = iterator.next();
                 if (card.getType().equals(CardType.J)) {
-                    System.out.println("Classes.Computer played: " + card.toString());
+                    System.out.println("Computer played: " + card.toString());
                     iterator.remove();
                     pack.cardPack.add(card);
                     pack.setSpecialEfect(false);
                     changeColor();
                     pack.setActualCardType(CardType.J);
-                    System.out.println("Classes.Computer changed color to: " + pack.getActualCardColor());
+                    System.out.println("Computer changed color to: " + pack.getActualCardColor());
                     hasPlayedCard = true;
                     break;
                 }
@@ -148,7 +148,7 @@ public class Computer implements Serializable {
 
     /**
      * Method for Diamonds K
-     * if Random is 1, Classes.Computer will draw one extra card
+     * if Random is 1, Computer will draw one extra card
      */
     public void DiamondsK(){
         int number;
@@ -157,7 +157,7 @@ public class Computer implements Serializable {
             if (number == 1) {
                 computerPack.add(card);
                 pack.cardPack.remove(card);
-                System.out.println("Classes.Computer drew one extra card");
+                System.out.println("Computer drew one extra card");
             }
     }
 
