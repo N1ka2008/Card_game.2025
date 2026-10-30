@@ -8,6 +8,10 @@ import java.util.ArrayList;
  */
 public class Files {
 
+    public static final String CARDS_FILE = ".idea/Cards.txt";
+    public static final String MANUAL_FILE = ".idea/Manual.txt";
+    public static final String SAVE_FILE = "file.ser";
+
     private Computer computer;
     private Player player;
     private Pack pack;
@@ -22,76 +26,53 @@ public class Files {
      * Method saves the values to a file
      */
     public void save(String fileName) {
-        try {
-            File file = new File(fileName);
-            if (file.exists()) {
-                file.delete();
-            }
+        ArrayList<Object> gameState = new ArrayList<>();
+        gameState.add(computer);
+        gameState.add(player);
+        gameState.add(pack);
 
-            ArrayList<Object> gameState = new ArrayList<>();
-            gameState.add(computer);
-            gameState.add(player);
-            gameState.add(pack);
-
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
-                oos.writeObject(gameState);
-                System.out.println("Game saved successfully!");
-            }
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            oos.writeObject(gameState);
+            System.out.println("Game saved successfully!");
         } catch (IOException e) {
             System.err.println("Error saving game: " + e.getMessage());
         }
     }
 
     /**
-     * Method copies data from a saved file to the current object
+     * Method copies data from a saved file to the current objects
+     * The links between the objects (pack, opponent) stay the same, only hands, piles, turns and colors are copied
      */
     public boolean load(String fileName) {
-        try {
-            try {
-                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
-                    ArrayList<Object> gameState = (ArrayList<Object>) ois.readObject();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+            ArrayList<Object> gameState = (ArrayList<Object>) ois.readObject();
 
-                    Computer loadedComputer = (Computer) gameState.get(0);
-                    Player loadedPlayer = (Player) gameState.get(1);
-                    Pack loadedPack = (Pack) gameState.get(2);
+            Computer loadedComputer = (Computer) gameState.get(0);
+            Player loadedPlayer = (Player) gameState.get(1);
+            Pack loadedPack = (Pack) gameState.get(2);
 
-                    this.computer.computerPack = loadedComputer.computerPack;
-                    this.computer.setTurn(loadedComputer.isTurn());
+            computer.setHand(loadedComputer.getHand());
+            computer.setTurn(loadedComputer.isTurn());
 
-                    this.player.playerPack = loadedPlayer.playerPack;
-                    this.player.setTurn(loadedPlayer.isTurn());
+            player.setHand(loadedPlayer.getHand());
+            player.setTurn(loadedPlayer.isTurn());
 
-                    this.pack.cardPack = loadedPack.cardPack;
-                    this.pack.setMelded(loadedPack.getMelded());
-                    this.pack.setActualCardColor(loadedPack.getActualCardColor());
-                    this.pack.setActualCardType(loadedPack.getActualCardType());
+            pack.setCardPack(loadedPack.getCardPack());
+            pack.setMelded(loadedPack.getMelded());
+            pack.setActualCardColor(loadedPack.getActualCardColor());
+            pack.setActualCardType(loadedPack.getActualCardType());
 
-                    this.pack.setPlayer(this.player);
-                    this.pack.setComputer(this.computer);
-                    this.computer.player = this.player;
-                    this.player.computer = this.computer;
-                    this.player.pack = this.pack;
-                    this.computer.pack = this.pack;
-
-                    System.out.println("Game loaded successfully!");
-                    return true;
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println("Saved file not found: " + e.getMessage());
-                return false;
-            } catch (IOException e) {
-                System.err.println("Error loading game: " + e.getMessage());
-                return false;
-            } catch (ClassNotFoundException e) {
-                System.err.println("Class not found when loading game: " + e.getMessage());
-                return false;
-            } catch (ClassCastException e) {
-                System.err.println("Error casting loaded objects: " + e.getMessage());
-                return false;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            return true;
+        } catch (FileNotFoundException e) {
+            System.err.println("Saved file not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error loading game: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println("Class not found when loading game: " + e.getMessage());
+        } catch (ClassCastException e) {
+            System.err.println("Error casting loaded objects: " + e.getMessage());
         }
+        return false;
     }
 
     /**
@@ -103,10 +84,8 @@ public class Files {
             while ((radek = reader.readLine()) != null) {
                 System.out.println(radek);
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Manual not found: " + text);
         }
     }
 }

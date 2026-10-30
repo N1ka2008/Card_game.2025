@@ -22,8 +22,9 @@ public class PlayACard extends Command {
     }
 
     /**
-     * Method splits argument into color and type. Controls if player has this card, if does it launch playerPlayCard
-     * It also changes turn
+     * Method splits argument into color and type. Controls if player has this card and if it can be played.
+     * The turn changes only if the card was really played (Pack.playCard() passes the turn and applies the effect)
+     * Type can be written as a name or as a digit, e.g. play FALLING 3
      */
     @Override
     public boolean execute(String argument) {
@@ -33,35 +34,31 @@ public class PlayACard extends Command {
             return false;
         }
 
-        String color = parts[0].toUpperCase();
-        String type = parts[1].toUpperCase();
-
+        CardColor cardColor;
+        CardType cardType;
         try {
-            CardColor cardColor = CardColor.valueOf(color);
-            CardType cardType = CardType.valueOf(type);
-
-            boolean hasCard = false;
-            for (Card card : player.playerPack) {
-                if (card.getColor() == cardColor && card.getType() == cardType) {
-                    hasCard = true;
-                    break;
-                }
-            }
-
-            if (!hasCard) {
-                System.out.println("You dont have this card");
-                return false;
-            }
-
-            System.out.println(player.playerPlayCard(color, type));
-            player.setTurn(false);
-            computer.setTurn(true);
-            pack.setSpecialEfect(false);
-            return true;
+            cardColor = CardColor.valueOf(parts[0].toUpperCase());
+            cardType = CardType.parse(parts[1]);
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid card! Check color and type");
             return false;
         }
+
+        Card card = player.findCard(cardColor, cardType);
+        if (card == null) {
+            System.out.println("You dont have this card");
+            return false;
+        }
+
+        if (!pack.canPlay(card)) {
+            System.out.println("You cannot play this card. It must have the color "
+                    + pack.getActualCardColor() + " or the type " + pack.getActualCardType());
+            return false;
+        }
+
+        System.out.println("Player played: " + card);
+        pack.playCard(player, card);
+        return true;
     }
 
     public boolean exit() {

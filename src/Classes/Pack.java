@@ -2,22 +2,20 @@ package Classes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Class for the main pack and its methods
+ * The last card of cardPack is the melded card, played cards are added to the end, cards are drawn from the beginning
  */
 public class Pack implements Serializable {
 
     public ArrayList<Card> cardPack = new ArrayList<>();
 
     private Card melded;
-    private Player player;
-    private Computer computer;
     private CardColor actualCardColor;
     private CardType actualCardType;
-    private boolean skipTurn = false;
-    private boolean specialEfect = false;
+    private Random rd = new Random();
 
     public Pack() {
         this.cardPack = new ArrayList<>();
@@ -34,32 +32,32 @@ public class Pack implements Serializable {
 
     /**
      * Method initializes melded card and sets the actual color and type
+     * The game never starts with an effect card, so a number card is moved to the end of the pack first
      */
     public void initializeMelded() {
         if (!cardPack.isEmpty()) {
+            for (int i = 0; i < cardPack.size(); i++) {
+                if (cardPack.get(i).getType().isNumber()) {
+                    Card number = cardPack.remove(i);
+                    cardPack.add(number);
+                    break;
+                }
+            }
             melded = cardPack.get(cardPack.size() - 1);
             this.actualCardColor = getMelded().getColor();
             this.actualCardType = getMelded().getType();
         }
     }
 
-     public Pack(Computer computer, Player player) {
-        this.computer = computer;
-        this.player = player;
-    }
-
     /**
      * Method adds card to the main pack
      */
     public void add(Card card) {
-        if(!cardPack.contains(card)) {
-            if (cardPack.size() < 32) {
-                cardPack.add(card);
-            } else {
-                System.out.println("Cannot add card to the pack");
-            }
+        if(!cardPack.contains(card) && cardPack.size() < 44) {
+            cardPack.add(card);
+        } else {
+            System.out.println("Cannot add card to the pack");
         }
-        System.out.println("something went wrong");
     }
 
     /**
@@ -68,8 +66,8 @@ public class Pack implements Serializable {
     public boolean addCardsFromFile(String name) {
         try {
             ArrayList<Card> cards = (ArrayList<Card>) Cards1.readCardsFromFile(name);
-            if (cardPack.size() + cards.size() > 32) {
-                System.out.println("The limit is 32 cards");
+            if (cardPack.size() + cards.size() > 44) {
+                System.out.println("The limit is 44 cards");
                 return false;
             }
             cardPack.addAll(cards);
@@ -81,104 +79,128 @@ public class Pack implements Serializable {
     }
 
     /**
-     * Method gives Classes.Player and Classes.Computer 4 start cards
+     * Method gives Player and Computer 4 start cards
      */
-    public void startCards(){
-        Card[] firstEightCards = new Card[8];
-        Iterator<Card> iterator = cardPack.iterator();
-
-        for (int i = 0; i < 8 && iterator.hasNext(); i++) {
-            firstEightCards[i] = iterator.next();
-        }
-
-        for (int i = 0; i < 8; i += 2) {
-            player.playerPack.add(firstEightCards[i]);
-            cardPack.remove(firstEightCards[i]);
-        }
-
-        for (int i = 1; i < 8; i += 2) {
-            computer.computerPack.add(firstEightCards[i]);
-            cardPack.remove(firstEightCards[i]);
+    public void dealStartCards(Participant first, Participant second) {
+        for (int i = 0; i < 4; i++) {
+            first.drawCard();
+            second.drawCard();
         }
     }
 
     /**
-     * Method gives Classes.Player or Computer 2 cards, if melded card is seven
+     * Method takes the first card from the pack. The last card is the melded one, so it is never drawn
+     * It returns null, if there is no card to draw
      */
-    public boolean meldedIsSeven(){
-        if(!actualCardType.equals(CardType.SEVEN) || specialEfect == true) {
+    public Card drawCard() {
+        if (cardPack.size() <= 1) {
+            return null;
+        }
+        return cardPack.remove(0);
+    }
+
+    /**
+     * Card can be played, if it has the same color or the same type as the actual card
+     */
+    public boolean canPlay(Card card) {
+        return card.getColor() == actualCardColor || card.getType() == actualCardType;
+    }
+
+    /**
+     * Method plays the card: it goes to the end of the pack (it is the new melded card), the actual color and type
+     * are set, the effect is applied and the turn is passed.
+     * It returns false (and changes nothing), if the card cannot be played
+     */
+    public boolean playCard(Participant who, Card card) {
+        if (!who.getHand().contains(card) || !canPlay(card)) {
             return false;
         }
-        if(player == null || computer == null) {
-            System.out.println("Player or computer not initialized");
-            return false;
-        }
 
-        System.out.println("SEVEN played! Drawing 2 cards");
-        specialEfect = true;
+        who.getHand().remove(card);
+        cardPack.add(card);
+        melded = card;
+        actualCardColor = card.getColor();
+        actualCardType = card.getType();
 
-        if (player.isTurn()) {
-            Card[] firstTwoCardsPlayer = new Card[2];
-            Iterator<Card> iterator2 = cardPack.iterator();
+        boolean opponentSkipped = meldedIsNightmare(who) || meldedIsParalysis(who) || meldedIsDejaVu(who);
+        meldedIsAwakening(who);
+        meldedIsTwist();
 
-            for (int i = 0; i < 2 && iterator2.hasNext(); i++) {
-                firstTwoCardsPlayer[i] = iterator2.next();
-            }
-            for (int i = 0; i < 2; i++) {
-                if(firstTwoCardsPlayer[i] != null) {
-                    player.playerPack.add(firstTwoCardsPlayer[i]);
-                    cardPack.remove(firstTwoCardsPlayer[i]);
-                }
-            }
-            player.setTurn(false);
-            computer.setTurn(true);
-            System.out.println("Player drew 2 cards");
-        } else {
-            Card[] firstTwoCardsComputer = new Card[2];
-            Iterator<Card> iterator = cardPack.iterator();
-
-            for (int i = 0; i < 2 && iterator.hasNext(); i++) {
-                firstTwoCardsComputer[i] = iterator.next();
-            }
-            for (int i = 0; i < 2; i++) {
-                if(firstTwoCardsComputer[i] != null) {
-                    computer.computerPack.add(firstTwoCardsComputer[i]);
-                    cardPack.remove(firstTwoCardsComputer[i]);
-                }
-            }
-            computer.setTurn(false);
-            player.setTurn(true);
-            System.out.println("Computer drew 2 cards");
+        if (!opponentSkipped) {
+            passTurn(who);
         }
         return true;
     }
 
     /**
-     * Method will not let Classes.Player or Computer play, if melded card is ace
+     * Method gives the opponent 2 cards, if melded card is nightmare. The opponent also skips the turn
      */
-    public boolean meldedIsA(){
-        if(skipTurn) {
+    private boolean meldedIsNightmare(Participant who) {
+        if (!actualCardType.equals(CardType.NIGHTMARE)) {
             return false;
         }
+        Participant other = who.getOpponent();
+        int drawn = other.drawCards(2);
+        System.out.println("NIGHTMARE! " + other.getName() + " draws " + drawn + " cards and skips the turn.");
+        return true;
+    }
 
-        boolean meldedIsA;
-        if(getActualCardType().equals(CardType.A) && specialEfect == false) {
-            specialEfect = true;
-            meldedIsA = true;
-            skipTurn = true;
-            if(player.isTurn()) {
-                player.setTurn(false);
-                computer.setTurn(true);
-            }else{
-                computer.setTurn(false);
-                player.setTurn(true);
-            }
-            specialEfect = true;
-            System.out.println("An Ace was played! Turn is skipped.");
-        }else{
-            meldedIsA = false;
+    /**
+     * Method skips the turn of the opponent, if melded card is paralysis
+     */
+    private boolean meldedIsParalysis(Participant who) {
+        if (!actualCardType.equals(CardType.PARALYSIS)) {
+            return false;
         }
-        return meldedIsA;
+        System.out.println("PARALYSIS! " + who.getOpponent().getName() + " is frozen and skips the turn.");
+        return true;
+    }
+
+    /**
+     * Method reverses the direction, if melded card is deja vu. With two players it works as a skipped turn
+     */
+    private boolean meldedIsDejaVu(Participant who) {
+        if (!actualCardType.equals(CardType.DEJAVU)) {
+            return false;
+        }
+        System.out.println("DEJA VU! The direction reverses, " + who.getName() + " plays again.");
+        return true;
+    }
+
+    /**
+     * Method lets Player or Computer choose the new color, if melded card is awakening
+     */
+    private boolean meldedIsAwakening(Participant who) {
+        if (!actualCardType.equals(CardType.AWAKENING)) {
+            return false;
+        }
+        actualCardColor = who.chooseColor();
+        System.out.println(who.getName() + " woke up and chose the color: " + actualCardColor);
+        return true;
+    }
+
+    /**
+     * Method changes the actual color to a random different one, if melded card is twist
+     */
+    private boolean meldedIsTwist() {
+        if (!actualCardType.equals(CardType.TWIST)) {
+            return false;
+        }
+        CardColor newColor;
+        do {
+            newColor = CardColor.values()[rd.nextInt(CardColor.values().length)];
+        } while (newColor == actualCardColor);
+        actualCardColor = newColor;
+        System.out.println("TWIST! The color randomly changed to: " + actualCardColor);
+        return true;
+    }
+
+    /**
+     * Method gives the turn to the opponent
+     */
+    public void passTurn(Participant who) {
+        who.setTurn(false);
+        who.getOpponent().setTurn(true);
     }
 
     public CardType getActualCardType() {
@@ -197,22 +219,6 @@ public class Pack implements Serializable {
         this.actualCardColor = actualCardColor;
     }
 
-    public Computer getComputer() {
-        return computer;
-    }
-
-    public void setComputer(Computer computer) {
-        this.computer = computer;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
     public Card getMelded() {
         return melded;
     }
@@ -227,21 +233,5 @@ public class Pack implements Serializable {
 
     public void setCardPack(ArrayList<Card> cardPack) {
         this.cardPack = cardPack;
-    }
-
-    public boolean isSkipTurn() {
-        return skipTurn;
-    }
-
-    public void setSkipTurn(boolean skipTurn) {
-        this.skipTurn = skipTurn;
-    }
-
-    public boolean isSpecialEfect() {
-        return specialEfect;
-    }
-
-    public void setSpecialEfect(boolean specialEfect) {
-        this.specialEfect = specialEfect;
     }
 }
